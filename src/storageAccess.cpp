@@ -1,15 +1,9 @@
 #include "storageAccess.h"
 
-storageAccess::storageAccess(/* args */)
-{
-}
+StorageAccess::StorageAccess() {}
 
-storageAccess::~storageAccess()
-{
-}
-void storageAccess::loop()
-{
-    while (1)
-    {
-    }
+StorageAccess::~StorageAccess() {}
+
+void StorageAccess::loop() {
+	while (true) {}
 }

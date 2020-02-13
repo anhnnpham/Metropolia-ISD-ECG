@@ -1,9 +1,11 @@
-class readECGData
-{
-private:
-    /* data */
+#ifndef ECG_ISD_ESP32_READECGDATA_H
+#define ECG_ISD_ESP32_READECGDATA_H
+
+class ReadECGData {
 public:
-    readECGData(/* args */);
-    ~readECGData();
-    void loop();
+	ReadECGData();
+	~ReadECGData();
+	void loop();
 };
+
+#endif

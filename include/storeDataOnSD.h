@@ -1,10 +1,11 @@
-class storeDataOnSD
-{
-private:
-    /* data */
+#ifndef ECG_ISD_ESP32_STOREDATAONSD_H
+#define ECG_ISD_ESP32_STOREDATAONSD_H
+
+class StoreDataOnSD {
 public:
-    storeDataOnSD(/* args */);
-    ~storeDataOnSD();
-    void loop();
+	StoreDataOnSD();
+	~StoreDataOnSD();
+	void loop();
 };
 
+#endif

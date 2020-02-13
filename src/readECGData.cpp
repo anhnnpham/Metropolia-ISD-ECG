@@ -1,15 +1,9 @@
 #include "readECGData.h"
 
-readECGData::readECGData(/* args */)
-{
-}
+ReadECGData::ReadECGData() {}
 
-readECGData::~readECGData()
-{
-}
-void readECGData::loop()
-{
-    while (1)
-    {
-    }
+ReadECGData::~ReadECGData() {}
+
+void ReadECGData::loop() {
+	while (true) {}
 }

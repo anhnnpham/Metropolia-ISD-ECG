@@ -1,40 +1,31 @@
 #include <Arduino.h>
-#include <FreeRTOS.h>
+#include <freertos/FreeRTOS.h>
+
 #include "setupWiFi.h"
-#include "onScreen.h"
-//declare Tasks
-void taskScreen(void *parameter);
+#include "ui.h"
 
-//Declare Objects
-setupWiFi *crtlWiFi;
-onScreen *crtlScreen;
+void uiTask(void* parameter);
 
-void setup()
-{
-  //setup Serial for Debugging
-  Serial.begin(9600);
-  //Setup Objects
-  crtlWiFi = new setupWiFi;
-  crtlScreen = new onScreen;
-  // Give Time to Complete Wifi
-  delay(2000);
-  //Create Display Task
-  xTaskCreate(
-      taskScreen,   /* Task function. */
-      "TaskScreen", /* String with name of task. */
-      5000,         /* Stack size in bytes. */
-      NULL,         /* Parameter passed as input of the task */
-      1,            /* Priority of the task. */
-      NULL);        /* Task handle. */
+SetupWiFi* setupWiFi;
+UI* ui;
+
+void setup() {
+	Serial.begin(921600);
+
+	setupWiFi = new SetupWiFi;
+	ui = new UI;
+
+	// Give Time to Complete Wifi
+	delay(2000);
+
+	xTaskCreate(uiTask, "UI", 5000, nullptr, 1, nullptr);
 }
 
-void loop()
-{
-  //Just do nothing
-  delay(1000);
+void loop() {
+	//Just do nothing
+	delay(1000);
 }
 
-void taskScreen(void *parameter)
-{
-  crtlScreen->loop();
+void uiTask(void* parameter) {
+	ui->loop();
 }

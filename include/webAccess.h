@@ -1,9 +1,11 @@
-class webAccess
-{
-private:
-    /* data */
+#ifndef ECG_ISD_ESP32_WEBACCESS_H
+#define ECG_ISD_ESP32_WEBACCESS_H
+
+class WebAccess {
 public:
-    webAccess(/* args */);
-    ~webAccess();
-    void loop();
+	WebAccess();
+	~WebAccess();
+	void loop();
 };
+
+#endif

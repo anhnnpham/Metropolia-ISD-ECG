@@ -1,16 +1,9 @@
 #include "webAccess.h"
 
-webAccess::webAccess(/* args */)
-{
-}
+WebAccess::WebAccess() {}
 
-webAccess::~webAccess()
-{
-}
+WebAccess::~WebAccess() {}
 
-void webAccess::loop()
-{
-    while (1)
-    {
-    }
+void WebAccess::loop() {
+	while (true) {}
 }

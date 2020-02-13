@@ -1,10 +1,11 @@
-class storageAccess
-{
-private:
-    /* data */
+#ifndef ECG_ISD_ESP32_STORAGEACCESS_H
+#define ECG_ISD_ESP32_STORAGEACCESS_H
+
+class StorageAccess {
 public:
-    storageAccess(/* args */);
-    ~storageAccess();
-    void loop();
+	StorageAccess();
+	~StorageAccess();
+	void loop();
 };
 
+#endif

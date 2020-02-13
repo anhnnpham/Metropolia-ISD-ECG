@@ -1,16 +1,9 @@
 #include "storeDataOnSD.h"
 
-storeDataOnSD::storeDataOnSD(/* args */)
-{
-}
+StoreDataOnSD::StoreDataOnSD() {}
 
-storeDataOnSD::~storeDataOnSD()
-{
-}
+StoreDataOnSD::~StoreDataOnSD() {}
 
-void storeDataOnSD::loop()
-{
-    while (1)
-    {
-    }
+void StoreDataOnSD::loop() {
+	while (true) {}
 }

@@ -1,24 +1,17 @@
 #include "setupWiFi.h"
 
-setupWiFi::setupWiFi(/* args */)
-{
+SetupWiFi::SetupWiFi() {}
+
+SetupWiFi::~SetupWiFi() {}
+
+IPAddress SetupWiFi::getIP() {
+	return WiFi.softAPIP();
 }
 
-setupWiFi::~setupWiFi()
-{
+bool SetupWiFi::turnOff() {
+	WiFi.softAPdisconnect(true);
 }
 
-IPAddress setupWiFi::getIP()
-{
-    return WiFi.softAPIP();
-}
-
-bool setupWiFi::turnOff()
-{
-    WiFi.softAPdisconnect(true);
-}
-
-bool setupWiFi::turnOn()
-{
-    WiFi.softAP(ssid, password);
+bool SetupWiFi::turnOn() {
+	WiFi.softAP(ssid, password);
 }
