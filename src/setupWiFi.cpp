@@ -1,8 +1,10 @@
 #include "setupWiFi.h"
 
-SetupWiFi::SetupWiFi() {}
+SetupWiFi::SetupWiFi() {
+}
 
-SetupWiFi::~SetupWiFi() {}
+SetupWiFi::~SetupWiFi() {
+}
 
 IPAddress SetupWiFi::getIP() {
 	return WiFi.softAPIP();

@@ -1,0 +1,21 @@
+﻿---
+AccessModifierOffset: '-4'
+AlignAfterOpenBracket: AlwaysBreak
+AlignEscapedNewlines: DontAlign
+AlignOperands: 'false'
+AlignTrailingComments: 'false'
+AllowAllParametersOfDeclarationOnNextLine: 'true'
+BinPackArguments: 'false'
+BinPackParameters: 'false'
+IndentWidth: '4'
+NamespaceIndentation: All
+PointerAlignment: Left
+SpacesBeforeTrailingComments: '2'
+TabWidth: '4'
+UseTab: ForContinuationAndIndentation
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+---

@@ -4,8 +4,8 @@
 #include <WiFi.h>
 
 class SetupWiFi {
-	const char *ssid = "ESP32-Access-Point";
-	const char *password = "123456789";
+	const char* ssid = "ESP32-Access-Point";
+	const char* password = "123456789";
 
 public:
 	SetupWiFi();

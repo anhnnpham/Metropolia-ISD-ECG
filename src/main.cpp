@@ -22,7 +22,7 @@ void setup() {
 }
 
 void loop() {
-	//Just do nothing
+	// Just do nothing
 	delay(1000);
 }
 

@@ -6,14 +6,14 @@
 
 #ifdef ARDUINO_NodeMCU_32S
 
-constexpr int8_t ADAS1000_SCK = 18; // SCK
-constexpr int8_t ADAS1000_SDI = 23; // MOSI
-constexpr int8_t ADAS1000_SDO = 19; // MISO
+constexpr int8_t ADAS1000_SCK = 18;  // SCK
+constexpr int8_t ADAS1000_SDI = 23;  // MOSI
+constexpr int8_t ADAS1000_SDO = 19;  // MISO
 constexpr int8_t ADAS1000_nCS_0 = 22;
 constexpr int8_t ADAS1000_nCS_1 = 21;
 constexpr int8_t ADAS1000_nDRDY = 15;
 
-constexpr int8_t BTN_UP = 39; // VN
+constexpr int8_t BTN_UP = 39;  // VN
 constexpr int8_t BTN_LEFT = 34;
 constexpr int8_t BTN_RIGHT = 33;
 constexpr int8_t BTN_DOWN = 35;
