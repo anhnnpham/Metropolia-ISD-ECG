@@ -46,7 +46,7 @@ class UI {
 	SPIClass& _spi;
 	SemaphoreHandle_t _spi_mutex;
 
-	std::shared_ptr<Adafruit_GFX> _gfx;
+	std::unique_ptr<Adafruit_GFX> _gfx;
 	std::vector<std::shared_ptr<UIScreen>> _stack;
 	bool _dirty = true;
 

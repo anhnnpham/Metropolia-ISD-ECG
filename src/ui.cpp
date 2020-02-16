@@ -88,18 +88,22 @@ UI::UI(SPIClass& spi, SemaphoreHandle_t& spi_mutex)
 #endif
 {
 #ifdef HAVE_SSD1306
-	auto ssd1306 = std::make_shared<Adafruit_SSD1306>(
+	auto ssd1306 = std::make_unique<Adafruit_SSD1306>(
 		128, 64, &_spi, OLED_SA0, OLED_RST, OLED_CS);
 
-	if (ssd1306->begin(SSD1306_SWITCHCAPVCC)) {
-		ssd1306->clearDisplay();
-		ssd1306->display();
-		ssd1306->setTextSize(1);
-		ssd1306->setTextColor(SSD1306_WHITE);
-		ssd1306->cp437(true);
-		_gfx = std::move(ssd1306);
-	} else {
-		Serial.println("SSD1306 init failed");
+	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
+		if (ssd1306->begin(SSD1306_SWITCHCAPVCC)) {
+			ssd1306->clearDisplay();
+			ssd1306->display();
+			ssd1306->setTextSize(1);
+			ssd1306->setTextColor(SSD1306_WHITE);
+			ssd1306->cp437(true);
+			_gfx = std::move(ssd1306);
+		} else {
+			Serial.println("SSD1306 init failed");
+		}
+
+		xSemaphoreGive(_spi_mutex);
 	}
 #endif
 
@@ -214,7 +218,7 @@ void UI::loop() {
 			}
 		}
 
-		if (_gfx && _dirty) {
+		if (_gfx && _dirty && xSemaphoreTake(_spi_mutex, 0) == pdTRUE) {
 #ifdef HAVE_SSD1306
 			static_cast<Adafruit_SSD1306&>(*_gfx).clearDisplay();
 #else
@@ -251,6 +255,7 @@ void UI::loop() {
 #ifdef HAVE_SSD1306
 			static_cast<Adafruit_SSD1306&>(*_gfx).display();
 #endif
+			xSemaphoreGive(_spi_mutex);
 			_dirty = false;
 		}
 
