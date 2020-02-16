@@ -25,6 +25,10 @@ std::unique_ptr<UI> ui;
 void setup() {
 	Serial.begin(921600);
 
+	delay(2000);
+
+	Serial.println("Starting");
+
 	hspiMutex = xSemaphoreCreateMutex();
 
 	readECGData = std::make_shared<ReadECGData>(vspi);
@@ -32,8 +36,6 @@ void setup() {
 	storage = std::make_shared<Storage>(hspi, hspiMutex);
 	storeDataOnSD = std::make_shared<StoreDataOnSD>(storage);
 	ui = std::make_unique<UI>(hspi, hspiMutex);
-
-	delay(2000);
 
 	xTaskCreate(readECGDataTask, "ReadECGData", 5000, nullptr, 1, nullptr);
 	xTaskCreate(storeDataOnSDTask, "StoreDataOnSD", 5000, nullptr, 1, nullptr);
