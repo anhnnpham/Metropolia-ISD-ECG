@@ -18,4 +18,3 @@ bool SetupWiFi::turnOff() {
 bool SetupWiFi::turnOn() {
 	return WiFi.softAP(ssid, password);
 }
-
