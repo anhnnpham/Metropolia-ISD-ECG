@@ -65,6 +65,7 @@ Storage::Storage(SPIClass& spi, SemaphoreHandle_t spi_mutex)
 	// log_v("List recs:");
 	// for (auto& rec : list_recordings()) {
 	// 	log_v("- %s (%d)", rec.get_name(), rec.get_size());
+	// 	remove_recording(rec.get_name());
 	// 	if (open_recording(rec.get_name())) {
 	// 		int len;
 	// 		do {
@@ -288,13 +289,15 @@ bool Storage::remove_recording(const char* name) {
 	auto path = build_recording_path(name);
 
 	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
-		if (!SD.exists(path.data())) {
+		if (SD.exists(path.data())) {
 			if (!SD.remove(path.data())) {
 				log_e("can't remove file: %s", path.data());
 				set_error(StorageError::CanNotRemoveFile);
+				xSemaphoreGive(_spi_mutex);
 				return false;
 			}
 
+			xSemaphoreGive(_spi_mutex);
 			return true;
 		}
 
