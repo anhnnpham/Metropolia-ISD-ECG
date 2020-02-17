@@ -4,15 +4,19 @@
 #include <WiFi.h>
 
 class SetupWiFi {
-	const char* ssid = "ESP32-Access-Point";
-	const char* password = "123456789";
+	const char* _ssid = "ESP32-Access-Point";
+	const char* _password = "123456789";
 
 public:
 	SetupWiFi();
 	~SetupWiFi();
-	IPAddress getIP();
-	bool turnOff();
-	bool turnOn();
+
+	const char* get_ap_name();
+	const char* get_ap_password();
+	IPAddress get_ap_ip_address();
+
+	bool set_ap_enabled(bool enabled = true);
+	bool is_ap_enabled();
 };
 
 #endif

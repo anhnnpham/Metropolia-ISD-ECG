@@ -32,52 +32,110 @@ class UIMenuScreen : public UIScreen {
 public:
 	UIMenuScreen(
 		std::string title,
-		std::vector<std::pair<std::string, std::function<void(UI&)>>> choices);
+		std::vector<std::pair<std::string, std::function<void(UI&)>>> choices)
+		: UIScreen(title), _choices(std::move(choices)) {}
 
-	bool on_event(UIEvent event, UI& ui) override;
-	void draw(Adafruit_GFX& gfx) override;
+	bool on_event(UIEvent event, UI& ui) override {
+		switch (event) {
+		case UIEvent::UpClicked:
+			if (_index <= 0) {
+				_index = _choices.size() - 1;
+			} else {
+				_index--;
+			}
+			return true;
+		case UIEvent::DownClicked:
+			if (_index >= _choices.size() - 1) {
+				_index = 0;
+			} else {
+				_index++;
+			}
+			return true;
+		case UIEvent::OkClicked:
+			_choices.at(_index).second(ui);
+			return true;
+		default:
+			return false;
+		}
+	}
+	void draw(Adafruit_GFX& gfx) override {
+		int i = 0;
+		for (const auto& choice : _choices) {
+			if (i++ == _index) {
+				gfx.print("> ");
+			} else {
+				gfx.print("- ");
+			}
+			gfx.println(choice.first.data());
+		}
+	}
 };
 
-UIMenuScreen::UIMenuScreen(
-	std::string title,
-	std::vector<std::pair<std::string, std::function<void(UI&)>>> choices)
-	: UIScreen(title), _choices(std::move(choices)) {}
+class UIWiFiApScreen : public UIScreen {
+	std::shared_ptr<SetupWiFi> _setup_wifi;
+	int _offset = 0;
 
-bool UIMenuScreen::on_event(UIEvent event, UI& ui) {
-	switch (event) {
-	case UIEvent::UpClicked:
-		if (_index <= 0) {
-			_index = _choices.size() - 1;
-		} else {
-			_index--;
-		}
-		return true;
-	case UIEvent::DownClicked:
-		if (_index >= _choices.size() - 1) {
-			_index = 0;
-		} else {
-			_index++;
-		}
-		return true;
-	case UIEvent::OkClicked:
-		_choices.at(_index).second(ui);
-		return true;
-	default:
-		return false;
-	}
-}
+public:
+	UIWiFiApScreen() : UIScreen("WiFi Access Point") {}
 
-void UIMenuScreen::draw(Adafruit_GFX& gfx) {
-	int i = 0;
-	for (const auto& choice : _choices) {
-		if (i++ == _index) {
-			gfx.print("> ");
-		} else {
-			gfx.print("- ");
-		}
-		gfx.println(choice.first.data());
+	void set_setup_wifi(std::shared_ptr<SetupWiFi> setup_wifi) {
+		_setup_wifi = std::move(setup_wifi);
 	}
-}
+
+	bool on_event(UIEvent event, UI& ui) override {
+		switch (event) {
+		case UIEvent::UpClicked:
+			if (_offset <= 0) {
+				_offset = 2;
+			} else {
+				_offset--;
+			}
+			return true;
+		case UIEvent::DownClicked:
+			if (_offset >= 2) {
+				_offset = 0;
+			} else {
+				_offset++;
+			}
+			return true;
+		case UIEvent::OkClicked:
+			if (_setup_wifi) {
+				_setup_wifi->set_ap_enabled(!_setup_wifi->is_ap_enabled());
+			}
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	void draw(Adafruit_GFX& gfx) override {
+		if (!_setup_wifi) {
+			gfx.println("UI has no connection to WiFi");
+			return;
+		}
+
+		if (_offset <= 0) {
+			gfx.print("State: ");
+			if (_setup_wifi->is_ap_enabled()) {
+				gfx.println("Enabled");
+			} else {
+				gfx.println("Disabled");
+			}
+		}
+		if (_offset <= 1) {
+			gfx.println("Name:");
+		}
+		gfx.printf(" %s\n", _setup_wifi->get_ap_name());
+		gfx.printf("Password:\n %s\n", _setup_wifi->get_ap_password());
+		if (_offset >= 1) {
+			gfx.println("Address:");
+		}
+		if (_offset >= 2) {
+			gfx.print(" ");
+			gfx.println(_setup_wifi->get_ap_ip_address());
+		}
+	}
+};
 
 UI::UI(SPIClass& spi, SemaphoreHandle_t& spi_mutex)
 	: _spi(spi), _spi_mutex(spi_mutex)
@@ -108,31 +166,28 @@ UI::UI(SPIClass& spi, SemaphoreHandle_t& spi_mutex)
 #endif
 
 	std::vector<std::pair<std::string, std::function<void(UI&)>>> choices;
-	choices.push_back({ "WiFi", [=](UI& ui) {
-						   ui.push(_wifi_menu);
-					   } });
-	choices.push_back({ "Measurement", [=](UI& ui) {
-						   ui.push(_measurement_menu);
-					   } });
+	choices.push_back({
+		"WiFi Access Point",
+		[=](UI& ui) { ui.push(_wifi_menu); },
+	});
+	choices.push_back({
+		"Measurement",
+		[=](UI& ui) { ui.push(_measurement_menu); },
+	});
 	_main_menu =
 		std::make_shared<UIMenuScreen>(std::string("ECG ISD ESP32"), choices);
 
-	choices.clear();
-	choices.push_back({ "On", [=](UI& ui) {
-						   Serial.println("WiFi On");
-					   } });
-	choices.push_back({ "Off", [=](UI& ui) {
-						   Serial.println("WiFi Off");
-					   } });
-	_wifi_menu = std::make_shared<UIMenuScreen>(std::string("WiFi"), choices);
+	_wifi_menu = std::make_shared<UIWiFiApScreen>();
 
 	choices.clear();
-	choices.push_back({ "Start", [=](UI& ui) {
-						   Serial.println("Start Measurement");
-					   } });
-	choices.push_back({ "Stop", [=](UI& ui) {
-						   Serial.println("Stop Measurement");
-					   } });
+	choices.push_back({
+		"Start",
+		[=](UI& ui) { Serial.println("Start Measurement"); },
+	});
+	choices.push_back({
+		"Stop",
+		[=](UI& ui) { Serial.println("Stop Measurement"); },
+	});
 	_measurement_menu =
 		std::make_shared<UIMenuScreen>(std::string("Measurement"), choices);
 
@@ -140,6 +195,14 @@ UI::UI(SPIClass& spi, SemaphoreHandle_t& spi_mutex)
 }
 
 UI::~UI() {}
+
+void UI::set_setup_wifi(std::shared_ptr<SetupWiFi> setup_wifi) {
+	_setup_wifi = std::move(setup_wifi);
+
+	if (auto wifi_menu = std::static_pointer_cast<UIWiFiApScreen>(_wifi_menu)) {
+		wifi_menu->set_setup_wifi(_setup_wifi);
+	}
+}
 
 void UI::pop(unsigned num) {
 	for (int i = 0; i < _min((unsigned long) num, _stack.size() - 1); i++) {

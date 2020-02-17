@@ -9,6 +9,8 @@
 #include <SimpleButton.h>
 #endif
 
+#include "setupWiFi.h"
+
 class SPIClass;
 typedef void* SemaphoreHandle_t;
 
@@ -61,9 +63,13 @@ class UI {
 	std::shared_ptr<UIScreen> _wifi_menu;
 	std::shared_ptr<UIScreen> _measurement_menu;
 
+	std::shared_ptr<SetupWiFi> _setup_wifi;
+
 public:
 	UI(SPIClass& spi, SemaphoreHandle_t& spi_mutex);
 	~UI();
+
+	void set_setup_wifi(std::shared_ptr<SetupWiFi> setup_wifi);
 
 	void pop(unsigned num = 1);
 	void push(std::shared_ptr<UIScreen> screen);

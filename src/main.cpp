@@ -36,6 +36,7 @@ void setup() {
 	storage = std::make_shared<Storage>(hspi, hspiMutex);
 	storeDataOnSD = std::make_shared<StoreDataOnSD>(storage);
 	ui = std::make_unique<UI>(hspi, hspiMutex);
+	ui->set_setup_wifi(setupWiFi);
 
 	xTaskCreate(readECGDataTask, "ReadECGData", 5000, nullptr, 1, nullptr);
 	xTaskCreate(storeDataOnSDTask, "StoreDataOnSD", 5000, nullptr, 1, nullptr);
