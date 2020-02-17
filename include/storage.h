@@ -9,7 +9,7 @@ class Storage {
 	SemaphoreHandle_t _spi_mutex;
 
 public:
-	Storage(SPIClass& spi, SemaphoreHandle_t& spi_mutex);
+	Storage(SPIClass& spi, SemaphoreHandle_t spi_mutex);
 	~Storage();
 };
 

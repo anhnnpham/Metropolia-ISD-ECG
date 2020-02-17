@@ -58,6 +58,7 @@ public:
 			return false;
 		}
 	}
+
 	void draw(Adafruit_GFX& gfx) override {
 		int i = 0;
 		for (const auto& choice : _choices) {
@@ -137,7 +138,7 @@ public:
 	}
 };
 
-UI::UI(SPIClass& spi, SemaphoreHandle_t& spi_mutex)
+UI::UI(SPIClass& spi, SemaphoreHandle_t spi_mutex)
 	: _spi(spi), _spi_mutex(spi_mutex)
 #ifdef ARDUINO_NodeMCU_32S
 	  ,

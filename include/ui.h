@@ -66,7 +66,7 @@ class UI {
 	std::shared_ptr<SetupWiFi> _setup_wifi;
 
 public:
-	UI(SPIClass& spi, SemaphoreHandle_t& spi_mutex);
+	UI(SPIClass& spi, SemaphoreHandle_t spi_mutex);
 	~UI();
 
 	void set_setup_wifi(std::shared_ptr<SetupWiFi> setup_wifi);
