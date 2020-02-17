@@ -1,7 +1,6 @@
 #include "setupWiFi.h"
 
-SetupWiFi::SetupWiFi() {
-}
+SetupWiFi::SetupWiFi() {}
 
 SetupWiFi::~SetupWiFi() {
 	turnOff();

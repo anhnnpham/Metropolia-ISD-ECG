@@ -1,22 +1,33 @@
-﻿---
+﻿--- # clang-format 9
 AccessModifierOffset: '-4'
 AlignAfterOpenBracket: AlwaysBreak
 AlignEscapedNewlines: DontAlign
 AlignOperands: 'false'
 AlignTrailingComments: 'false'
 AllowAllParametersOfDeclarationOnNextLine: 'true'
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakBeforeMultilineStrings: true
 BinPackArguments: 'false'
 BinPackParameters: 'false'
+Cpp11BracedListStyle: false
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<[[:alnum:]]+>$'
+    Priority: 1
+  - Regex: '^<[[:alnum:]./]+>$'
+    Priority: 2
+  - Regex: '^".*"$'
+    Priority: 3
 IndentWidth: '4'
 NamespaceIndentation: All
 PointerAlignment: Left
+SpaceAfterCStyleCast: true
 SpacesBeforeTrailingComments: '2'
 TabWidth: '4'
 UseTab: ForContinuationAndIndentation
-AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
-AllowShortIfStatementsOnASingleLine: false
-AllowShortLoopsOnASingleLine: false
-SpaceAfterCStyleCast: true
 ...
