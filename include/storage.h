@@ -8,38 +8,70 @@ typedef void* SemaphoreHandle_t;
 
 enum class StorageError {
 	None,
-	CannotInitialize,
+	CanNotInitialize,
+	CanNotOpenFile,
+	CanNotRemoveFile,
 	FileSystemError,
 	TooManyFiles,
-	CanNotOpenFile
 };
 
-enum class StorageState { Idle, Error, Recording };
+enum class StorageState {
+	Idle,
+	Error,
+	Recording,
+	Reading,
+};
+
+class StorageEntry {
+	std::string _name;
+	size_t _size;
+
+	StorageEntry(std::string name, size_t size)
+		: _name(std::move(name)), _size(size) {}
+
+public:
+	const char* get_name() const {
+		return _name.data();
+	}
+
+	size_t get_size() const {
+		return _size;
+	}
+
+	friend class Storage;
+};
 
 class Storage {
 	SPIClass& _spi;
 	SemaphoreHandle_t _spi_mutex;
 
-	int lastFileIndex = 0;
-	File currentFile;
-	StorageState state_ = StorageState::Idle;
-	StorageError error_ = StorageError::None;
+	int _last_file_index = 0;
+	File _current_file;
+	std::string _current_recording_name;
+	StorageState _state = StorageState::Idle;
+	StorageError _error = StorageError::None;
 
 	bool init();
-	void setError(StorageError error);
+	void set_error(StorageError error);
 
 public:
 	Storage(SPIClass& spi, SemaphoreHandle_t spi_mutex);
 	~Storage();
 
-	bool beginRecording();
-	bool endRecording();
-	bool writeRecord(const float data[], uint8_t length);
-	int readRecord(float data[], uint8_t length);
-	void loop();
-	StorageError getError() const;
-	bool clearError();
-	StorageState isRecording();
+	StorageError get_error() const;
+	bool clear_error();
+
+	bool begin_recording();
+	bool is_recording() const;
+	bool write_record(const float data[], uint8_t length);
+	const char* end_recording();
+
+	std::vector<StorageEntry> list_recordings();
+	bool remove_recording(const char* name);
+
+	bool open_recording(const char* name);
+	int read_record(float data[], uint8_t length);
+	bool close_recording();
 };
 
 #endif

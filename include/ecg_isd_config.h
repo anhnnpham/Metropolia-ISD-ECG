@@ -4,6 +4,12 @@
 
 #include <Arduino.h>
 
+#ifdef ARDUINO_TTGO_LoRa32_V1
+
+constexpr int8_t SD_CS = 5;
+
+#endif
+
 #ifdef ARDUINO_NodeMCU_32S
 
 constexpr int8_t ADAS1000_SCK = 18;  // SCK
