@@ -1,10 +1,11 @@
 #ifndef ECG_ISD_ESP32_STORAGE_H
 #define ECG_ISD_ESP32_STORAGE_H
 
+#include <mutex>
+
 #include <SD.h>
 
 class SPIClass;
-typedef void* SemaphoreHandle_t;
 
 enum class StorageError {
 	None,
@@ -43,7 +44,7 @@ public:
 
 class Storage {
 	SPIClass& _spi;
-	SemaphoreHandle_t _spi_mutex;
+	std::mutex& _spi_mutex;
 
 	int _last_file_index = 0;
 	File _current_file;
@@ -55,7 +56,7 @@ class Storage {
 	void set_error(StorageError error);
 
 public:
-	Storage(SPIClass& spi, SemaphoreHandle_t spi_mutex);
+	Storage(SPIClass& spi, std::mutex& spi_mutex);
 	~Storage();
 
 	StorageError get_error() const;

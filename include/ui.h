@@ -2,6 +2,7 @@
 #define ECG_ISD_ESP32_UI_H
 
 #include <memory>
+#include <mutex>
 
 #include <Adafruit_GFX.h>
 
@@ -12,7 +13,6 @@
 #include "setupWiFi.h"
 
 class SPIClass;
-typedef void* SemaphoreHandle_t;
 
 class UI;
 
@@ -46,7 +46,7 @@ public:
 
 class UI {
 	SPIClass& _spi;
-	SemaphoreHandle_t _spi_mutex;
+	std::mutex& _spi_mutex;
 
 	std::unique_ptr<Adafruit_GFX> _gfx;
 	std::vector<std::shared_ptr<UIScreen>> _stack;
@@ -66,7 +66,7 @@ class UI {
 	std::shared_ptr<SetupWiFi> _setup_wifi;
 
 public:
-	UI(SPIClass& spi, SemaphoreHandle_t spi_mutex);
+	UI(SPIClass& spi, std::mutex& spi_mutex);
 	~UI();
 
 	void set_setup_wifi(std::shared_ptr<SetupWiFi> setup_wifi);

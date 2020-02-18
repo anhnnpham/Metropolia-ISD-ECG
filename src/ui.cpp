@@ -138,7 +138,7 @@ public:
 	}
 };
 
-UI::UI(SPIClass& spi, SemaphoreHandle_t spi_mutex)
+UI::UI(SPIClass& spi, std::mutex& spi_mutex)
 	: _spi(spi), _spi_mutex(spi_mutex)
 #ifdef ARDUINO_NodeMCU_32S
 	  ,
@@ -150,7 +150,9 @@ UI::UI(SPIClass& spi, SemaphoreHandle_t spi_mutex)
 	auto ssd1306 = std::make_unique<Adafruit_SSD1306>(
 		128, 64, &_spi, OLED_SA0, OLED_RST, OLED_CS);
 
-	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
+	{
+		std::lock_guard<std::mutex> lock(_spi_mutex);
+
 		if (ssd1306->begin(SSD1306_SWITCHCAPVCC)) {
 			ssd1306->clearDisplay();
 			ssd1306->display();
@@ -159,10 +161,8 @@ UI::UI(SPIClass& spi, SemaphoreHandle_t spi_mutex)
 			ssd1306->cp437(true);
 			_gfx = std::move(ssd1306);
 		} else {
-			Serial.println("SSD1306 init failed");
+			log_e("SSD1306 init failed");
 		}
-
-		xSemaphoreGive(_spi_mutex);
 	}
 #endif
 
@@ -183,11 +183,11 @@ UI::UI(SPIClass& spi, SemaphoreHandle_t spi_mutex)
 	choices.clear();
 	choices.push_back({
 		"Start",
-		[=](UI& ui) { Serial.println("Start Measurement"); },
+		[=](UI& ui) { log_d("clicked: Start Measurement"); },
 	});
 	choices.push_back({
 		"Stop",
-		[=](UI& ui) { Serial.println("Stop Measurement"); },
+		[=](UI& ui) { log_d("clicked: Stop Measurement"); },
 	});
 	_measurement_menu =
 		std::make_shared<UIMenuScreen>(std::string("Measurement"), choices);
@@ -282,45 +282,48 @@ void UI::loop() {
 			}
 		}
 
-		if (_gfx && _dirty && xSemaphoreTake(_spi_mutex, 0) == pdTRUE) {
+		if (_gfx && _dirty) {
+			std::unique_lock<std::mutex> lock(_spi_mutex, std::try_to_lock);
+
+			if (lock.owns_lock()) {
 #ifdef HAVE_SSD1306
-			static_cast<Adafruit_SSD1306&>(*_gfx).clearDisplay();
+				static_cast<Adafruit_SSD1306&>(*_gfx).clearDisplay();
 #else
-			_gfx->fillScreen(0);
+				_gfx->fillScreen(0);
 #endif
-			_gfx->setCursor(0, 10);
-			if (!_stack.empty()) {
-				_stack.back()->draw(*_gfx);
-			} else {
-				_gfx->println("No UIScreen");
-			}
+				_gfx->setCursor(0, 10);
+				if (!_stack.empty()) {
+					_stack.back()->draw(*_gfx);
+				} else {
+					_gfx->println("No UIScreen");
+				}
 
-			// Header
-			_gfx->setCursor(1, 0);
-			if (_stack.size() > 1) {
-				_gfx->print("< ");
-			}
-			if (!_stack.empty()) {
-				_gfx->println(_stack.back()->title().data());
-			} else {
-				_gfx->println("!! ERROR !!");
-			}
-			_gfx->drawFastHLine(0, 8, 128, 1);
+				// Header
+				_gfx->setCursor(1, 0);
+				if (_stack.size() > 1) {
+					_gfx->print("< ");
+				}
+				if (!_stack.empty()) {
+					_gfx->println(_stack.back()->title().data());
+				} else {
+					_gfx->println("!! ERROR !!");
+				}
+				_gfx->drawFastHLine(0, 8, 128, 1);
 
-			// Footer
-			int16_t footer_top = 64 - 7 - 2;
-			_gfx->drawFastHLine(0, footer_top, 128, 1);
-			_gfx->setCursor(1, footer_top + 2);
-			if (_stack.size() > 1) {
-				_gfx->print("Back");
-			}
-			_gfx->setCursor(128 - 6 * 2, footer_top + 2);
-			_gfx->print("OK");
+				// Footer
+				int16_t footer_top = 64 - 7 - 2;
+				_gfx->drawFastHLine(0, footer_top, 128, 1);
+				_gfx->setCursor(1, footer_top + 2);
+				if (_stack.size() > 1) {
+					_gfx->print("Back");
+				}
+				_gfx->setCursor(128 - 6 * 2, footer_top + 2);
+				_gfx->print("OK");
 #ifdef HAVE_SSD1306
-			static_cast<Adafruit_SSD1306&>(*_gfx).display();
+				static_cast<Adafruit_SSD1306&>(*_gfx).display();
 #endif
-			xSemaphoreGive(_spi_mutex);
-			_dirty = false;
+				_dirty = false;
+			}
 		}
 
 		delay(1000 / 60 * portTICK_PERIOD_MS);

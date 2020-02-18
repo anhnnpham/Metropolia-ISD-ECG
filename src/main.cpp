@@ -1,3 +1,5 @@
+#include <mutex>
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <freertos/FreeRTOS.h>
@@ -10,7 +12,7 @@
 
 SPIClass vspi(VSPI);  // For ECG
 SPIClass hspi(HSPI);  // For OLED and SD
-SemaphoreHandle_t hspiMutex;
+std::mutex hspi_mutex;
 
 void readECGDataTask(void* parameter);
 void storeDataOnSDTask(void* parameter);
@@ -29,13 +31,11 @@ void setup() {
 
 	Serial.println("Starting");
 
-	hspiMutex = xSemaphoreCreateMutex();
-
 	readECGData = std::make_shared<ReadECGData>(vspi);
 	setupWiFi = std::make_shared<SetupWiFi>();
-	storage = std::make_shared<Storage>(hspi, hspiMutex);
+	storage = std::make_shared<Storage>(hspi, hspi_mutex);
 	storeDataOnSD = std::make_shared<StoreDataOnSD>(storage);
-	ui = std::make_unique<UI>(hspi, hspiMutex);
+	ui = std::make_unique<UI>(hspi, hspi_mutex);
 	ui->set_setup_wifi(setupWiFi);
 
 	xTaskCreate(readECGDataTask, "ReadECGData", 5000, nullptr, 1, nullptr);
