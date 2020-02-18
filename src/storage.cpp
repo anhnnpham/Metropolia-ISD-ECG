@@ -40,11 +40,11 @@ const char* storage_state_to_str(StorageState state) {
 }
 
 #define STORAGE_CHECK_STATE(CURRENT_STATE, EXPECTED_STATE, RETURN_VALUE) \
-	if (_state != (EXPECTED_STATE)) { \
+	if (CURRENT_STATE != (EXPECTED_STATE)) { \
 		log_e( \
 			"ERROR: not in %s state, current state: %s", \
 			storage_state_to_str(EXPECTED_STATE), \
-			storage_state_to_str(_state)); \
+			storage_state_to_str(CURRENT_STATE)); \
 		return RETURN_VALUE; \
 	}
 
@@ -253,6 +253,11 @@ const char* Storage::create_new_recording() {
 
 bool Storage::write_record(const float data[], uint8_t length) {
 	STORAGE_CHECK_STATE(_state, StorageState::Recording, false);
+
+	if (length == 0) {
+		log_e("No data to write??");
+		return false;
+	}
 
 	std::lock_guard<std::mutex> lock(_spi_mutex);
 
