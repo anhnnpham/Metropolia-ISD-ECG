@@ -55,11 +55,13 @@ Storage::Storage(SPIClass& spi, SemaphoreHandle_t spi_mutex)
 	}
 
 	// float data[9] = { 0.0, 1.0, 2.0 };
-	// if (begin_recording()) {
-	// 	write_record(data, 3);
-	// 	write_record(data, 3);
-	// 	write_record(data, 3);
-	// 	end_recording();
+	// for (int i = 0; i < 3; i++) {
+	// 	if (create_new_recording()) {
+	// 		for (int j = 0; j < i + 1; j++) {
+	// 			write_record(data, 3);
+	// 		}
+	// 		close_recording();
+	// 	}
 	// }
 	//
 	// log_v("List recs:");
@@ -139,96 +141,6 @@ bool Storage::clear_error() {
 	return true;
 }
 
-bool Storage::begin_recording() {
-	STORAGE_CHECK_STATE(_state, StorageState::Idle, false);
-
-	char recording_name[6];
-	char recording_path[22];
-	bool new_file_found = false;
-
-	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
-		for (int i = _last_file_index; i < 10000; i++) {
-			snprintf(recording_name, 6, "%05d", i);
-			snprintf(recording_path, 22, "/recordings/%s.rec", recording_name);
-
-			if (!SD.exists(recording_path)) {
-				_current_recording_name = recording_name;
-				new_file_found = true;
-				break;
-			}
-		}
-
-		if (!new_file_found) {
-			log_e("can not find free filename");
-			set_error(StorageError::TooManyFiles);
-			xSemaphoreGive(_spi_mutex);
-			return false;
-		}
-
-		log_i("opening: %s", recording_path);
-		_current_file = SD.open(recording_path, FILE_WRITE);
-
-		if (!_current_file) {
-			log_e("can not open file: %s", recording_path);
-			set_error(StorageError::CanNotOpenFile);
-			xSemaphoreGive(_spi_mutex);
-			return false;
-		}
-
-		_state = StorageState::Recording;
-
-		xSemaphoreGive(_spi_mutex);
-		return true;
-	}
-
-	return false;
-}
-
-bool Storage::is_recording() const {
-	return _state == StorageState::Recording;
-}
-
-bool Storage::write_record(const float data[], uint8_t length) {
-	STORAGE_CHECK_STATE(_state, StorageState::Recording, false);
-
-	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
-		if (!_current_file.write(length)) {
-			log_e("couldn't write length to file");
-			set_error(StorageError::FileSystemError);
-			return false;
-		}
-
-		if (!_current_file.write(
-				(const uint8_t*) data, sizeof(float) * length)) {
-			log_e("couldn't write data to file");
-			set_error(StorageError::FileSystemError);
-			return false;
-		}
-
-		xSemaphoreGive(_spi_mutex);
-		return true;
-	}
-
-	return false;
-}
-
-const char* Storage::end_recording() {
-	STORAGE_CHECK_STATE(_state, StorageState::Recording, nullptr);
-
-	if (_current_file) {
-		log_i("closing file");
-		if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
-			_current_file.close();
-			xSemaphoreGive(_spi_mutex);
-		}
-	}
-
-	_state = StorageState::Idle;
-	_last_file_index++;
-
-	return _current_recording_name.data();
-}
-
 std::vector<StorageEntry> Storage::list_recordings() {
 	STORAGE_CHECK_STATE(_state, StorageState::Idle, {});
 
@@ -248,17 +160,21 @@ std::vector<StorageEntry> Storage::list_recordings() {
 		while (entry) {
 			if (!entry.isDirectory()) {
 				const char* entry_name = entry.name();
+				log_d("checking entry path: %s", entry_name);
 
 				if (strncmp(entry_name, "/recordings/", 12) == 0) {
 					entry_name += 12;
+					log_d("checking entry file name: %s", entry_name);
 
 					int entry_name_len = strlen(entry_name);
 					if ((entry_name_len >= 4) &&
 						(0 ==
 						 strcasecmp(entry_name + entry_name_len - 4, ".rec"))) {
+						std::string recording_name(
+							entry_name, entry_name_len - 4);
+						log_d("found recording: %s", recording_name.data());
 						recordings.emplace_back(StorageEntry(
-							std::string(entry_name, entry_name_len - 4),
-							entry.size()));
+							std::move(recording_name), entry.size()));
 					}
 				}
 			}
@@ -307,6 +223,78 @@ bool Storage::remove_recording(const char* name) {
 	return false;
 }
 
+const char* Storage::create_new_recording() {
+	STORAGE_CHECK_STATE(_state, StorageState::Idle, nullptr);
+
+	char recording_name[6];
+	char recording_path[22];
+	bool new_file_found = false;
+
+	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
+		for (int i = _last_file_index; i < 10000; i++) {
+			snprintf(recording_name, 6, "%05d", i);
+			snprintf(recording_path, 22, "/recordings/%s.rec", recording_name);
+			log_d("checking file path: %s", recording_path);
+
+			if (!SD.exists(recording_path)) {
+				log_d("file doesn't exist %s", recording_path);
+				_current_recording_name = recording_name;
+				new_file_found = true;
+				break;
+			}
+		}
+
+		if (!new_file_found) {
+			log_e("can not find free filename");
+			set_error(StorageError::TooManyFiles);
+			xSemaphoreGive(_spi_mutex);
+			return nullptr;
+		}
+
+		log_i("opening: %s", recording_path);
+		_current_file = SD.open(recording_path, FILE_WRITE);
+
+		if (!_current_file) {
+			log_e("can not open file: %s", recording_path);
+			set_error(StorageError::CanNotOpenFile);
+			xSemaphoreGive(_spi_mutex);
+			return nullptr;
+		}
+
+		_state = StorageState::Recording;
+
+		log_i("created new recording: %s", recording_name);
+		xSemaphoreGive(_spi_mutex);
+		return _current_recording_name.data();
+	}
+
+	return nullptr;
+}
+
+bool Storage::write_record(const float data[], uint8_t length) {
+	STORAGE_CHECK_STATE(_state, StorageState::Recording, false);
+
+	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
+		if (!_current_file.write(length)) {
+			log_e("couldn't write length to file");
+			set_error(StorageError::FileSystemError);
+			return false;
+		}
+
+		if (!_current_file.write(
+				(const uint8_t*) data, sizeof(float) * length)) {
+			log_e("couldn't write data to file");
+			set_error(StorageError::FileSystemError);
+			return false;
+		}
+
+		xSemaphoreGive(_spi_mutex);
+		return true;
+	}
+
+	return false;
+}
+
 bool Storage::open_recording(const char* name) {
 	STORAGE_CHECK_STATE(_state, StorageState::Idle, false);
 
@@ -321,6 +309,8 @@ bool Storage::open_recording(const char* name) {
 			} else {
 				log_e("can not open recording: %s", path.data());
 			}
+		} else {
+			log_e("no such recording: %s", path.data());
 		}
 
 		xSemaphoreGive(_spi_mutex);
@@ -336,12 +326,12 @@ int Storage::read_record(float data[], uint8_t length) {
 
 	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
 		if ((data_length = _current_file.peek()) == -1) {
-			// 			log_d("can't read length, assuming end of file");
+			// log_d("can't read length, assuming end of file");
 			xSemaphoreGive(_spi_mutex);
 			return 0;
 		}
 
-		// 		log_d("reading %d floats", data_length);
+		// log_d("reading %d floats", data_length);
 
 		if (data_length >= length) {
 			log_w(
@@ -372,16 +362,39 @@ int Storage::read_record(float data[], uint8_t length) {
 	return 0;
 }
 
+bool Storage::is_recording_open() const {
+	return _state == StorageState::Recording || _state == StorageState::Reading;
+}
+
 bool Storage::close_recording() {
-	STORAGE_CHECK_STATE(_state, StorageState::Reading, false);
+	switch (_state) {
+	case StorageState::Recording:
+		log_d("stopping recording");
 
-	if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
-		_current_file.close();
+		if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
+			_current_file.close();
+			xSemaphoreGive(_spi_mutex);
+		} else {
+			log_e("failed to take semaphore");
+		}
+
 		_state = StorageState::Idle;
+		_last_file_index++;
+		_current_recording_name.clear();
 
-		xSemaphoreGive(_spi_mutex);
 		return true;
-	}
+	case StorageState::Reading:
+		log_d("stopping reading");
 
-	return false;
+		if (xSemaphoreTake(_spi_mutex, portMAX_DELAY) == pdTRUE) {
+			_current_file.close();
+			xSemaphoreGive(_spi_mutex);
+		}
+
+		_state = StorageState::Idle;
+		return true;
+	default:
+		log_e("ERROR: current state: %s", storage_state_to_str(_state));
+		return false;
+	}
 }

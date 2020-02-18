@@ -61,16 +61,16 @@ public:
 	StorageError get_error() const;
 	bool clear_error();
 
-	bool begin_recording();
-	bool is_recording() const;
-	bool write_record(const float data[], uint8_t length);
-	const char* end_recording();
-
 	std::vector<StorageEntry> list_recordings();
 	bool remove_recording(const char* name);
 
+	const char* create_new_recording();
+	bool write_record(const float data[], uint8_t length);
+
 	bool open_recording(const char* name);
 	int read_record(float data[], uint8_t length);
+
+	bool is_recording_open() const;
 	bool close_recording();
 };
 
