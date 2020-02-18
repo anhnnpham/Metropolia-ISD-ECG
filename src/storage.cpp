@@ -267,8 +267,7 @@ bool Storage::write_record(const float data[], uint8_t length) {
 		return false;
 	}
 
-	if (!_current_file.write(
-			(const uint8_t*) data, sizeof(float) * length)) {
+	if (!_current_file.write((const uint8_t*) data, sizeof(float) * length)) {
 		log_e("couldn't write data to file");
 		set_error(StorageError::FileSystemError);
 		return false;
