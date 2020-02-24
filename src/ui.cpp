@@ -8,6 +8,8 @@
 #endif
 
 #include "ecg_isd_config.h"
+#include "setupWiFi.h"
+#include "storeDataOnSD.h"
 
 UIScreen::UIScreen(std::string title) : _title(title) {}
 
@@ -138,6 +140,53 @@ public:
 	}
 };
 
+class UIECGRecording : public UIScreen {
+	std::shared_ptr<StoreDataOnSD> _store_data_on_sd;
+	std::string _last_recording_name;
+
+public:
+	UIECGRecording() : UIScreen("ECG Recording") {}
+
+	void set_store_data_on_sd(std::shared_ptr<StoreDataOnSD> store_data_on_sd) {
+		_store_data_on_sd = std::move(store_data_on_sd);
+	}
+
+	bool on_event(UIEvent event, UI& ui) override {
+		switch (event) {
+		case UIEvent::OkClicked:
+			if (_store_data_on_sd) {
+				if (_store_data_on_sd->is_recording()) {
+					_store_data_on_sd->stop_recording();
+				} else {
+					_last_recording_name = _store_data_on_sd->start_recording();
+				}
+			}
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	void draw(Adafruit_GFX& gfx) override {
+		if (!_store_data_on_sd) {
+			gfx.println("UI has no connection to Recording");
+			return;
+		}
+
+		gfx.print("State: ");
+
+		if (_store_data_on_sd->is_recording()) {
+			gfx.println("Recording");
+		} else {
+			gfx.println("Idle");
+		}
+		if (!_last_recording_name.empty()) {
+			gfx.print("Name: ");
+			gfx.println(_last_recording_name.data());
+		}
+	}
+};
+
 UI::UI(SPIClass& spi, std::mutex& spi_mutex)
 	: _spi(spi), _spi_mutex(spi_mutex)
 #ifdef ARDUINO_NodeMCU_32S
@@ -172,25 +221,14 @@ UI::UI(SPIClass& spi, std::mutex& spi_mutex)
 		[=](UI& ui) { ui.push(_wifi_menu); },
 	});
 	choices.push_back({
-		"Measurement",
+		"ECG Recording",
 		[=](UI& ui) { ui.push(_measurement_menu); },
 	});
 	_main_menu =
 		std::make_shared<UIMenuScreen>(std::string("ECG ISD ESP32"), choices);
 
 	_wifi_menu = std::make_shared<UIWiFiApScreen>();
-
-	choices.clear();
-	choices.push_back({
-		"Start",
-		[=](UI& ui) { log_d("clicked: Start Measurement"); },
-	});
-	choices.push_back({
-		"Stop",
-		[=](UI& ui) { log_d("clicked: Stop Measurement"); },
-	});
-	_measurement_menu =
-		std::make_shared<UIMenuScreen>(std::string("Measurement"), choices);
+	_measurement_menu = std::make_shared<UIECGRecording>();
 
 	reset(_main_menu);
 }
@@ -202,6 +240,15 @@ void UI::set_setup_wifi(std::shared_ptr<SetupWiFi> setup_wifi) {
 
 	if (auto wifi_menu = std::static_pointer_cast<UIWiFiApScreen>(_wifi_menu)) {
 		wifi_menu->set_setup_wifi(_setup_wifi);
+	}
+}
+
+void UI::set_store_data_on_sd(std::shared_ptr<StoreDataOnSD> store_data_on_sd) {
+	_store_data_on_sd = store_data_on_sd;
+
+	if (auto measurement_menu =
+			std::static_pointer_cast<UIECGRecording>(_measurement_menu)) {
+		measurement_menu->set_store_data_on_sd(_store_data_on_sd);
 	}
 }
 

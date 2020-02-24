@@ -10,7 +10,8 @@
 #include <SimpleButton.h>
 #endif
 
-#include "setupWiFi.h"
+class SetupWiFi;
+class StoreDataOnSD;
 
 class SPIClass;
 
@@ -64,12 +65,14 @@ class UI {
 	std::shared_ptr<UIScreen> _measurement_menu;
 
 	std::shared_ptr<SetupWiFi> _setup_wifi;
+	std::shared_ptr<StoreDataOnSD> _store_data_on_sd;
 
 public:
 	UI(SPIClass& spi, std::mutex& spi_mutex);
 	~UI();
 
 	void set_setup_wifi(std::shared_ptr<SetupWiFi> setup_wifi);
+	void set_store_data_on_sd(std::shared_ptr<StoreDataOnSD> store_data_on_sd);
 
 	void pop(unsigned num = 1);
 	void push(std::shared_ptr<UIScreen> screen);

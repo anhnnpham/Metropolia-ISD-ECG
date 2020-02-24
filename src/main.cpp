@@ -34,11 +34,16 @@ void setup() {
 	readECGData = std::make_shared<ReadECGData>(vspi);
 	setupWiFi = std::make_shared<SetupWiFi>();
 	storage = std::make_shared<Storage>(hspi, hspi_mutex);
-	storeDataOnSD = std::make_shared<StoreDataOnSD>(storage);
+	storeDataOnSD = std::make_shared<StoreDataOnSD>(storage, readECGData);
 	ui = std::make_unique<UI>(hspi, hspi_mutex);
 	ui->set_setup_wifi(setupWiFi);
+	ui->set_store_data_on_sd(storeDataOnSD);
 
-	xTaskCreate(readECGDataTask, "ReadECGData", 5000, nullptr, 1, nullptr);
+	// ECG needs all the resources it can have, otherwise it drops frames
+	disableCore1WDT();
+	xTaskCreatePinnedToCore(
+		readECGDataTask, "ReadECGData", 5000, nullptr, 1, nullptr, 1);
+
 	xTaskCreate(storeDataOnSDTask, "StoreDataOnSD", 5000, nullptr, 1, nullptr);
 	xTaskCreate(uiTask, "UI", 5000, nullptr, 1, nullptr);
 }
