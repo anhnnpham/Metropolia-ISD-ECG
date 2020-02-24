@@ -15,6 +15,7 @@ AlwaysBreakBeforeMultilineStrings: true
 BinPackArguments: 'false'
 BinPackParameters: 'false'
 Cpp11BracedListStyle: false
+FixNamespaceComments: false
 IncludeBlocks: Regroup
 IncludeCategories:
   - Regex: '^<[[:alnum:]]+>$'

@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="adas1000.xsl"?>
+<device
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="registers-0.1.xsd" name="ADAS1000"
+>
+	<register address="0x00" reset-value="0x000000" name="NOP">
+		<doc>NOP (no operation)</doc>
+	</register>
+	<register address="0x01" reset-value="0x000000" name="ECGCTL">
+		<doc>ECG control</doc>
+		<field range="23" name="LAEN">
+			<doc>ECG channel enable; shuts down power to the channel; the input becomes high-Z.</doc>
+			<enum>
+				<variant value="0" name="disabled">
+					<doc>disables ECG channel. When disabled, the entire ECG channel is shut down and dissipating minimal power.</doc>
+				</variant>
+				<variant value="1" name="enabled">
+					<doc>enables ECG channel.</doc>
+				</variant>
+			</enum>
+		</field>
+		<field range="22" name="LLEN" base="LAEN" />
+		<field range="21" name="RAEN" base="LAEN" />
+		<field range="20" name="V1EN" base="LAEN" />
+		<field range="19" name="V2EN" base="LAEN" />
+		<field range="10" name="CHCONFIG">
+			<doc>Setting this bit selects the differential analog front end (AFE) input.</doc>
+			<enum>
+				<variant value="0" name="single-ended">
+					<doc>single-ended input (digital lead mode or electrode mode).</doc>
+				</variant>
+				<variant value="1" name="differential">
+					<doc>differential input (analog lead mode).</doc>
+				</variant>
+			</enum>
+		</field>
+		<field range="9:8" name="GAIN">
+			<doc>Preamplifier and anti-aliasing filter overall gain.</doc>
+			<enum>
+				<variant value="0b00" name="x1.4">
+					<doc>×1.4</doc>
+				</variant>
+				<variant value="0b01" name="x2.1">
+					<doc>×2.1</doc>
+				</variant>
+				<variant value="0b10" name="x2.8">
+					<doc>×2.8</doc>
+				</variant>
+				<variant value="0b11" name="x4.2">
+					<doc>×1.4</doc>
+				</variant>
+			</enum>
+		</field>
+		<field range="7" name="VREFBUF">
+			<doc>VREF buffer enable.</doc>
+			<enum>
+				<variant value="0" name="disabled">
+					<doc>disabled</doc>
+				</variant>
+				<variant value="1" name="enabled">
+					<doc>enabled (when using the internal VREF, VREFBUF must be enabled).</doc>
+				</variant>
+			</enum>
+		</field>
+		<field range="6" name="CLKEXT">
+			<doc>
+				Use external clock instead of crystal oscillator. When a device is configured as a master, the user can choose
+				between an external crystal supplying the clock or an external clock source applied to the CLK_IO pin. The
+				crystal oscillator is automatically disabled if configured as a slave in gang mode, and the slave device
+				receives the clock from the master device. Note that the device powers up by default using an internal clock
+				and switches to the appropriate clock (XTAL or CLK_IO) when configured on the first write to the CLKEXT bit.
+			</doc>
+			<enum>
+				<variant value="0" name="XTAL">
+					<doc>XTAL is clock source.</doc>
+				</variant>
+				<variant value="1" name="CLK_IO">
+					<doc>CLK_IO is clock source.</doc>
+				</variant>
+			</enum>
+		</field>
+		<field range="5" name="Master">
+			<doc>
+				In gang mode, this bit selects the master (SYNC_GANG pin is configured as an output). When in single channel
+				mode (gang = 0), this bit is ignored. ADAS1000-2 cannot be configured as a master device.
+			</doc>
+			<enum>
+				<variant value="0" name="slave">
+					<doc>0 (default) = slave.</doc>
+				</variant>
+				<variant value="1" name="master">
+					<doc>1 = master.</doc>
+				</variant>
+			</enum>
+		</field>
+		<field range="4" name="Gang">
+			<doc>Enable gang mode. Setting this bit causes CLK_IO and SYNC_GANG to be activated.</doc>
+			<enum>
+				<variant name="single channel mode" value="0" />
+				<variant name="gang mode" value="1" />
+			</enum>
+		</field>
+		<field range="3" name="HP">
+			<doc>
+				Selects the noise/power performance. This bit controls the ADC sampling
+				frequency. See the Specifications section for further details. This bit
+				also affects the respiration carrier frequency as discussed in the
+				Respiration Carrier Frequency section.
+			</doc>
+			<enum>
+				<variant value="0" name="1 MSPS, low power" />
+				<variant value="1" name="2 MSPS, high performance/low noise" />
+			</enum>
+		</field>
+		<field range="2" name="CNVEN">
+			<doc>
+				Conversion enable. Setting this bit enables the ADC conversion and
+				filters.
+			</doc>
+			<enum>
+				<variant value="0" name="idle" />
+				<variant value="1" name="conversion enable" />
+			</enum>
+		</field>
+		<field range="1" name="PWREN">
+			<doc>
+				Power enable. Clearing this bit powers down the device. All analog
+				blocks are powered down and the external crystal is disabled. The
+				register contents are retained during power down as long as DVDD is
+				not removed.
+			</doc>
+			<enum>
+				<variant value="0" name="power down" />
+				<variant value="1" name="power enable" />
+			</enum>
+		</field>
+		<field range="1" name="SWRST">
+			<doc>
+				Software reset. Setting this bit clears all registers to their reset
+				value. This bit automatically clears itself. The software reset requires
+				a NOP command to complete the reset.
+			</doc>
+			<enum>
+				<variant value="0" name="NOP" />
+				<variant value="1" name="reset" />
+			</enum>
+		</field>
+	</register>
+	<register address="0x02" reset-value="0x000000" name="LOFFCTL">
+		<doc>Lead-off control</doc>
+	</register>
+	<register address="0x03" reset-value="0x000000" name="RESPCTL">
+		<doc>Respiration control</doc>
+	</register>
+	<register address="0x04" reset-value="0x000F88" name="PACECTL">
+		<doc>Pace detection control</doc>
+	</register>
+	<register address="0x05" reset-value="0xE00000" name="CMREFCTL">
+		<doc>Common-mode, reference, and shield drive control</doc>
+		<field range="23" name="LACM">
+			<enum>
+				<variant value="0" name="no" />
+				<variant value="1" name="yes" />
+			</enum>
+		</field>
+		<field range="22" name="LLCM" base="LACM" />
+		<field range="21" name="RACM" base="LACM" />
+		<field range="20" name="V1CM" base="LACM" />
+		<field range="19" name="V2CM" base="LACM" />
+
+		<field range="14" name="LARLD">
+			<enum>
+				<variant value="0" name="no" />
+				<variant value="1" name="yes" />
+			</enum>
+		</field>
+		<field range="13" name="LLRLD" base="LARLD" />
+		<field range="12" name="RARLD" base="LARLD" />
+		<field range="11" name="V1RLD" base="LARLD" />
+		<field range="10" name="V2RLD" base="LARLD" />
+		<field range="9"  name="CERLD" base="LARLD" />
+
+		<field range="8"  name="CEREFEN">
+			<doc>Common electrode (CE) reference.</doc>
+			<enum>
+				<variant value="0" name="disabled" />
+				<variant value="1" name="enabled" />
+			</enum>
+		</field>
+
+		<field range="7:4" name="RLDSEL">
+			<doc>Select electrode for reference drive.</doc>
+			<enum>
+				<variant value="0" name="RLD_OUT" />
+				<variant value="1" name="LA" />
+				<variant value="2" name="LL" />
+				<variant value="3" name="RA" />
+				<variant value="4" name="V1" />
+				<variant value="5" name="V2" />
+			</enum>
+		</field>
+
+		<field range="3" name="DRVCM">
+			<doc>
+				Common-mode output. When set, the internally derived common-mode signal
+				is driven out of the common-mode pin. This bit has no effect if an
+				external common mode is selected.
+			</doc>
+			<enum>
+				<variant value="0" name="not driven" />
+				<variant value="1" name="driven" />
+			</enum>
+		</field>
+
+		<field range="2" name="EXTCM">
+			<doc>
+				Select the source of common mode (use when operating multiple devices
+				together).
+			</doc>
+			<enum>
+				<variant value="0" name="internal" />
+				<variant value="1" name="external" />
+			</enum>
+		</field>
+
+		<field range="1" name="RLDEN">
+			<doc>Enable right leg drive reference electrode.</doc>
+			<enum>
+				<variant value="0" name="disabled" />
+				<variant value="1" name="enabled" />
+			</enum>
+		</field>
+
+		<field range="0" name="SHDLEN">
+			<doc>Enable shield drive.</doc>
+			<enum>
+				<variant value="0" name="disabled" />
+				<variant value="1" name="enabled" />
+			</enum>
+		</field>
+	</register>
+	<register address="0x06" reset-value="0x000000" name="GPIOCTL">
+		<doc>GPIO control</doc>
+	</register>
+	<register address="0x07" reset-value="0x242424" name="PACEAMPTH">
+		<doc>Pace amplitude threshold</doc>
+	</register>
+	<register address="0x08" reset-value="0x000000" name="TESTTONE">
+		<doc>Test tone</doc>
+	</register>
+	<register address="0x09" reset-value="0x002000" name="CALDAC">
+		<doc>Calibration DAC</doc>
+	</register>
+	<register address="0x0A" reset-value="0x079000" name="FRMCTL">
+		<doc>Frame control</doc>
+		<field range="23" name="LEAD1_LADIS">
+			<doc>
+				Include/exclude word from ECG data frame. If the electrode/lead is
+				included in the data-word and the electrode falls off, the data-word is
+				undefined.
+			</doc>
+			<enum>
+				<variant value="0" name="include" />
+				<variant value="1" name="exclude" />
+			</enum>
+		</field>
+		<field range="22" name="LEAD2_LLDIS" base="LEAD1_LADIS" />
+		<field range="21" name="LEAD3_RADIS" base="LEAD1_LADIS" />
+		<field range="20" name="V1DIS" base="LEAD1_LADIS" />
+		<field range="19" name="V2DIS" base="LEAD1_LADIS" />
+		<field range="14" name="PACEDIS" base="LEAD1_LADIS" />
+		<field range="13" name="RESPMDIS" base="LEAD1_LADIS" />
+		<field range="12" name="RESPPHDIS" base="LEAD1_LADIS" />
+		<field range="11" name="LOFFDIS" base="LEAD1_LADIS" />
+		<field range="10" name="GPIODIS" base="LEAD1_LADIS" />
+		<field range="9" name="CRCDIS" base="LEAD1_LADIS" />
+		<field range="7" name="ADIS">
+			<doc>
+				Automatically excludes PACEDIS[14], RESPMDIS[13], LOFFDIS[11] words if
+				their flags are not set in the header.
+			</doc>
+			<enum>
+				<variant value="0" name="fixed frame format" />
+				<variant value="1" name="autodisable words" />
+			</enum>
+		</field>
+		<field range="6" name="RDYRPT">
+			<doc>
+				Ready repeat. If this bit is set and the frame header indicates data is
+				not ready, the frame header is continuously sent until data is ready.
+			</doc>
+			<enum>
+				<variant value="0" name="always send entire frame" />
+				<variant value="1" name="repeat frame header until ready" />
+			</enum>
+		</field>
+		<field range="4" name="DATAFMT">
+			<doc>Sets the output data format.</doc>
+			<enum>
+				<variant value="0" name="digital lead/vector format" />
+				<variant value="1" name="electrode format" />
+			</enum>
+		</field>
+		<field range="3:2" name="SKIP">
+			<doc>Skip interval. This field provides a way to decimate the data.</doc>
+			<enum>
+				<variant value="0b00" name="output every frame" />
+				<variant value="0b01" name="output every other frame" />
+				<variant value="0b10" name="output every 4th frame" />
+<!-- 				<variant value="0b11" name="output every 4th frame" /> -->
+			</enum>
+		</field>
+		<field range="1:0" name="FRMRATE">
+			<doc>Sets the output data rate.</doc>
+			<enum>
+				<variant value="0b00" name="2 kHz" />
+				<variant value="0b01" name="16 kHz" />
+				<variant value="0b10" name="128 kHz" />
+				<variant value="0b11" name="31.25 Hz" />
+			</enum>
+		</field>
+	</register>
+	<register address="0x0B" reset-value="0x000000" name="FILTCTL">
+		<doc>Filter control</doc>
+	</register>
+	<register address="0x0C" reset-value="0x00FFFF" name="LOFFUTH">
+		<doc>AC lead-off upper threshold</doc>
+	</register>
+	<register address="0x0D" reset-value="0x000000" name="LOFFLTH">
+		<doc>AC lead-off lower threshold</doc>
+	</register>
+	<register address="0x0E" reset-value="0x000000" name="PACEEDGETH">
+		<doc>Pace edge threshold</doc>
+	</register>
+	<register address="0x0F" reset-value="0x000000" name="PACELVLTH">
+		<doc>Pace level threshold</doc>
+	</register>
+	<register address="0x11" reset-value="0x000000" name="LADATA">
+		<doc>LA or Lead I data</doc>
+	</register>
+	<register address="0x12" reset-value="0x000000" name="LLDATA">
+		<doc>LL or Lead II data</doc>
+	</register>
+	<register address="0x13" reset-value="0x000000" name="RADATA">
+		<doc>RA or Lead III data</doc>
+	</register>
+	<register address="0x14" reset-value="0x000000" name="V1DATA">
+		<doc>V1 or V1’ data</doc>
+	</register>
+	<register address="0x15" reset-value="0x000000" name="V2DATA">
+		<doc>V2 or V2’ data</doc>
+	</register>
+	<register address="0x1A" reset-value="0x000000" name="PACEDATA">
+		<doc>Read pace detection data/status</doc>
+	</register>
+	<register address="0x1B" reset-value="0x000000" name="RESPMAG">
+		<doc>Read respiration data—magnitude</doc>
+	</register>
+	<register address="0x1C" reset-value="0x000000" name="RESPPH">
+		<doc>Read respiration data—phase</doc>
+	</register>
+	<register address="0x1D" reset-value="0x000000" name="LOFF">
+		<doc>Lead-off status</doc>
+	</register>
+	<register address="0x1E" reset-value="0x000000" name="DCLEAD-OFF">
+		<doc>DC lead-off</doc>
+	</register>
+	<register address="0x1F" reset-value="0x000000" name="OPSTAT">
+		<doc>Operating state</doc>
+	</register>
+	<register address="0x20" reset-value="0x000000" name="EXTENDSW">
+		<doc>Extended switch for respiration inputs</doc>
+	</register>
+	<register address="0x21" reset-value="0x000000" name="CALLA">
+		<doc>User gain calibration LA</doc>
+	</register>
+	<register address="0x22" reset-value="0x000000" name="CALLL">
+		<doc>User gain calibration LL</doc>
+	</register>
+	<register address="0x23" reset-value="0x000000" name="CALRA">
+		<doc>User gain calibration RA</doc>
+	</register>
+	<register address="0x24" reset-value="0x000000" name="CALV1">
+		<doc>User gain calibration V1</doc>
+	</register>
+	<register address="0x25" reset-value="0x000000" name="CALV2">
+		<doc>User gain calibration V2</doc>
+	</register>
+	<register address="0x31" reset-value="0x000000" name="LOAMLA">
+		<doc>Lead-off amplitude for LA</doc>
+	</register>
+	<register address="0x32" reset-value="0x000000" name="LOAMLL">
+		<doc>Lead-off amplitude for LL</doc>
+	</register>
+	<register address="0x33" reset-value="0x000000" name="LOAMRA">
+		<doc>Lead-off amplitude for RA</doc>
+	</register>
+	<register address="0x34" reset-value="0x000000" name="LOAMV1">
+		<doc>Lead-off amplitude for V1</doc>
+	</register>
+	<register address="0x35" reset-value="0x000000" name="LOAMV2">
+		<doc>Lead-off amplitude for V2</doc>
+	</register>
+	<register address="0x3A" reset-value="0x000000" name="PACE1DATA">
+		<doc>Pace1 width and amplitude</doc>
+	</register>
+	<register address="0x3B" reset-value="0x000000" name="PACE2DATA">
+		<doc>Pace2 width and amplitude</doc>
+	</register>
+	<register address="0x3C" reset-value="0x000000" name="PACE3DATA">
+		<doc>Pace3 width and amplitude</doc>
+	</register>
+	<register address="0x40" reset-value="0x800000" name="FRAMES">
+		<doc>Frame header</doc>
+		<field range="31" name="Marker">
+			<doc>Header marker, set to 1 for the header</doc>
+		</field>
+		<field range="29:28" name="Overflow">
+			<enum>
+				<variant value="0" name="0 missed" />
+				<variant value="1" name="1 missed" />
+				<variant value="2" name="2 missed" />
+				<variant value="3" name="3 or more missed" />
+			</enum>
+		</field>
+		<field range="27" name="Fault">
+			<enum>
+				<variant value="0" name="normal operation" />
+				<variant value="1" name="error condition" />
+			</enum>
+		</field>
+		<field range="26" name="Pace 3 detected">
+			<enum>
+				<variant value="0" name="no pacing artifact" />
+				<variant value="1" name="pacing artifact present" />
+			</enum>
+		</field>
+		<field range="25" name="Pace 2 detected" base="Pace 3 detected" />
+		<field range="24" name="Pace 1 detected" base="Pace 3 detected" />
+		<field range="23" name="Respiration">
+			<enum>
+				<variant value="0" name="no new respiration data" />
+				<variant value="1" name="respiration data updated" />
+			</enum>
+		</field>
+		<field range="22" name="Lead-off detected">
+			<enum>
+				<variant value="0" name="all leads connected" />
+				<variant value="1" name="one or more lead-off detected" />
+			</enum>
+		</field>
+		<field range="21" name="DC lead-off detected" base="Lead-off detected" />
+		<field range="20" name="ADC out of range">
+			<enum>
+				<variant value="0" name="ADC within range" />
+				<variant value="1" name="ADC out of range" />
+			</enum>
+		</field>
+	</register>
+	<register address="0x41" reset-value="0xFFFFFF" name="CRC">
+		<doc>Frame CRC</doc>
+	</register>
+</device>

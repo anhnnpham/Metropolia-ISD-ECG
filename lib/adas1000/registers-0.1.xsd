@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+>
+	<xs:simpleType name="number">
+		<xs:annotation>
+			<xs:documentation>C number literal</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="0b[01]+|0o[0-7]+|[0-9]+|0x[0-9A-Fa-f]+"></xs:pattern>
+			<xs:minLength value="1"></xs:minLength>
+			<xs:whiteSpace value="collapse"></xs:whiteSpace>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="Documentable">
+		<xs:sequence>
+			<xs:element name="doc" minOccurs="0" maxOccurs="1" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Item">
+		<xs:annotation>
+			<xs:documentation>Nameable and documentable item</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Documentable">
+				<xs:attribute name="name" type="xs:string" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ItemWithBase">
+		<xs:annotation>
+			<xs:documentation>Item that can extend an other item</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Item">
+				<xs:attribute name="base" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="device">
+		<xs:annotation>
+			<xs:documentation>A device with registers</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="Item">
+					<xs:sequence>
+						<xs:element name="register" minOccurs="1" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Index addressed number storage location</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="ItemWithBase">
+										<xs:sequence>
+											<xs:element name="field" minOccurs="0" maxOccurs="unbounded">
+												<xs:annotation>
+													<xs:documentation>A set of bits in a register</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:complexContent>
+														<xs:extension base="ItemWithBase">
+															<xs:sequence>
+																<xs:element name="enum" minOccurs="0" maxOccurs="1">
+																	<xs:annotation>
+																		<xs:documentation>Defines possible values for a field</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:complexContent>
+																			<xs:extension base="Documentable">
+																				<xs:sequence>
+																					<xs:element name="variant" minOccurs="0" maxOccurs="unbounded">
+																						<xs:annotation>
+																							<xs:documentation>Enum variant</xs:documentation>
+																						</xs:annotation>
+																						<xs:complexType>
+																							<xs:complexContent>
+																								<xs:extension base="Item">
+																									<xs:attribute name="value" type="number" use="required" />
+																								</xs:extension>
+																							</xs:complexContent>
+																						</xs:complexType>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:extension>
+																		</xs:complexContent>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="range" use="required">
+																<xs:annotation>
+																	<xs:documentation>Defines the bit range in the register</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:pattern value="[0-9]+(:[0-9]+)?"></xs:pattern>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+														</xs:extension>
+													</xs:complexContent>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+										<xs:attribute name="address" type="number" use="required">
+											<xs:annotation>
+												<xs:documentation>Defines the address of a register</xs:documentation>
+											</xs:annotation>
+										</xs:attribute>
+										<xs:attribute name="reset-value" type="number">
+											<xs:annotation>
+												<xs:documentation>Defines the reset value of a register</xs:documentation>
+											</xs:annotation>
+										</xs:attribute>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
