@@ -1,13 +1,13 @@
 #ifndef ECG_ISD_ESP32_READECGDATA_H
 #define ECG_ISD_ESP32_READECGDATA_H
 
-class SPIClass;
+class SPIClass; // sys lib
 
 class ReadECGData {
-	SPIClass& _spi;
+	SPIClass& _spi; // ref
 
 public:
-	ReadECGData(SPIClass& spi);
+	ReadECGData(SPIClass& spi); // ReadECGData::ReadECGData(SPIClass& spi) : _spi(spi)
 	~ReadECGData();
 	void loop();
 };

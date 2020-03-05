@@ -7,18 +7,18 @@
 
 const char* storage_error_to_str(StorageError error) {
 	switch (error) {
-	case StorageError::None:
-		return "None";
-	case StorageError::CanNotInitialize:
-		return "CanNotInitialize";
-	case StorageError::CanNotOpenFile:
-		return "CanNotOpenFile";
-	case StorageError::CanNotRemoveFile:
-		return "CanNotRemoveFile";
-	case StorageError::FileSystemError:
-		return "FileSystemError";
-	case StorageError::TooManyFiles:
-		return "TooManyFiles";
+		case StorageError::None:
+			return "None";
+		case StorageError::CanNotInitialize:
+			return "CanNotInitialize";
+		case StorageError::CanNotOpenFile:
+			return "CanNotOpenFile";
+		case StorageError::CanNotRemoveFile:
+			return "CanNotRemoveFile";
+		case StorageError::FileSystemError:
+			return "FileSystemError";
+		case StorageError::TooManyFiles:
+			return "TooManyFiles";
 	}
 
 	return "<Error>";
@@ -48,8 +48,7 @@ const char* storage_state_to_str(StorageState state) {
 		return RETURN_VALUE; \
 	}
 
-Storage::Storage(SPIClass& spi, std::mutex& spi_mutex)
-	: _spi(spi), _spi_mutex(spi_mutex) {
+Storage::Storage(SPIClass& spi, std::mutex& spi_mutex) : _spi(spi), _spi_mutex(spi_mutex) {
 	if (!init()) {
 		log_e("First init failed");
 	}
@@ -63,22 +62,25 @@ Storage::Storage(SPIClass& spi, std::mutex& spi_mutex)
 	// 		close_recording();
 	// 	}
 	// }
-	//
+	
 	// Serial.println("List recs:");
-	// for (auto& rec : list_recordings()) {
+	
+	// float data[12]; 
+	// for (auto& rec : list_recordings()) { // std::vector<StorageEntry> recordings
 	// 	Serial.printf("- %s (%d)\n", rec.get_name(), rec.get_size());
 	// 	remove_recording(rec.get_name());
-	// 	if (open_recording(rec.get_name())) {
+	// 	if (open_recording(rec.get_name())) { // if can open
 	// 		int len;
 	// 		do {
-	// 			len = read_record(data, 9);
-	//
+	// 			// then read, put to "data" & return length
+	// 			len = read_record(data, 12); 
+	
 	// 			for (int i = 0; i < len; i++) {
-	// 				Serial.printf("%f;", data[i]);
+	// 				// Serial.printf("%f;", data[i]); // comma not semicolon
 	// 			}
-	//
+	
 	// 			if (len > 0) {
-	// 				Serial.println();
+	// 				// Serial.println();
 	// 			}
 	// 		} while (len >= 1);
 	// 		close_recording();
@@ -98,7 +100,7 @@ bool Storage::init() {
 		return false;
 	}
 
-	if (!SD.exists("/recordings")) {
+	if (!SD.exists("/recordings")) { // TODO: already has /recordings
 		if (!SD.mkdir("/recordings")) {
 			log_e("mkdir /recordings error");
 			set_error(StorageError::FileSystemError);
@@ -133,12 +135,12 @@ bool Storage::clear_error() {
 	return true;
 }
 
-std::vector<StorageEntry> Storage::list_recordings() {
+std::vector<StorageEntry> Storage::list_recordings() { // method of friend class, returning a vector of base class
 	STORAGE_CHECK_STATE(_state, StorageState::Idle, {});
 
 	std::lock_guard<std::mutex> lock(_spi_mutex);
 
-	File dir = SD.open("/recordings");
+	File dir = SD.open("/recordings"); // open dir
 
 	if (!dir) {
 		log_e("Can not open /recordings dir");
@@ -146,8 +148,8 @@ std::vector<StorageEntry> Storage::list_recordings() {
 		return {};
 	}
 
-	File entry = dir.openNextFile();
-	std::vector<StorageEntry> recordings;
+	std::vector<StorageEntry> recordings; // all files
+	File entry = dir.openNextFile(); // get full name
 
 	while (entry) {
 		if (!entry.isDirectory()) {
@@ -155,17 +157,14 @@ std::vector<StorageEntry> Storage::list_recordings() {
 			log_d("checking entry path: %s", entry_name);
 
 			if (strncmp(entry_name, "/recordings/", 12) == 0) {
-				entry_name += 12;
+				entry_name += 12; // jump to "000xx.rec"
 				log_d("checking entry file name: %s", entry_name);
 
-				int entry_name_len = strlen(entry_name);
-				if ((entry_name_len >= 4) &&
-					(0 ==
-					 strcasecmp(entry_name + entry_name_len - 4, ".rec"))) {
-					std::string recording_name(entry_name, entry_name_len - 4);
+				int entry_name_len = strlen(entry_name); // 5 + 4
+				if ((entry_name_len >= 4) && (strcasecmp(entry_name + entry_name_len - 4, ".rec") == 0)) {
+					std::string recording_name(entry_name, entry_name_len - 4); // TODO: WOW!
 					log_d("found recording: %s", recording_name.data());
-					recordings.emplace_back(
-						StorageEntry(std::move(recording_name), entry.size()));
+					recordings.emplace_back(StorageEntry(std::move(recording_name), entry.size()));
 				}
 			}
 		}
@@ -207,7 +206,7 @@ bool Storage::remove_recording(const char* name) {
 	return false;
 }
 
-const char* Storage::create_new_recording() {
+const char* Storage::create_new_recording() { // method
 	STORAGE_CHECK_STATE(_state, StorageState::Idle, nullptr);
 
 	std::lock_guard<std::mutex> lock(_spi_mutex);
@@ -218,8 +217,8 @@ const char* Storage::create_new_recording() {
 
 	for (int i = _last_file_index; i < 10000; i++) {
 		snprintf(recording_name, 6, "%05d", i);
-		snprintf(recording_path, 22, "/recordings/%s.rec", recording_name);
-		log_d("checking file path: %s", recording_path);
+		snprintf(recording_path, 22, "/recordings/%s.rec", recording_name); 
+		log_d("checking file path: %s", recording_path); // log_ = std lib
 
 		if (!SD.exists(recording_path)) {
 			log_d("file doesn't exist %s", recording_path);
@@ -286,7 +285,6 @@ bool Storage::open_recording(const char* name) {
 	if (SD.exists(path.data())) {
 		if ((_current_file = SD.open(path.data()))) {
 			_state = StorageState::Reading;
-
 			return true;
 		} else {
 			log_e("can not open recording: %s", path.data());
@@ -314,10 +312,7 @@ int Storage::read_record(float data[], uint8_t length) {
 	// log_d("reading %d floats", data_length);
 
 	if (data_length >= length) {
-		log_w(
-			"not enough space for reading, space: %d, needed: %d",
-			length,
-			data_length);
+		log_w("not enough space for reading, space: %d, needed: %d", length, data_length);
 
 		return -data_length;
 	}
@@ -329,7 +324,9 @@ int Storage::read_record(float data[], uint8_t length) {
 		return 0;
 	}
 
-	if (!_current_file.read((uint8_t*) data, sizeof(float) * data_length)) {
+	// File::_current_file -> "data" & "data_length" DAMN SON!
+	// TODO: File::_current_file = File w floats, data = floats
+	if (!_current_file.read((uint8_t*) data, sizeof(float) * data_length)) { 
 		set_error(StorageError::FileSystemError);
 
 		return 0;

@@ -9,7 +9,8 @@ class StoreDataOnSD {
 	std::shared_ptr<Storage> _storage;
 
 public:
-	StoreDataOnSD(std::shared_ptr<Storage> storage);
+	StoreDataOnSD(std::shared_ptr<Storage> storage); 
+	// StoreDataOnSD::StoreDataOnSD(std::shared_ptr<Storage> storage) : _storage(storage) {}
 	~StoreDataOnSD();
 	void loop();
 };

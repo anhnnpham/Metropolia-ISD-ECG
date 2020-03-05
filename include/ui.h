@@ -12,7 +12,7 @@
 
 #include "setupWiFi.h"
 
-class SPIClass;
+class SPIClass; // sys lib
 
 class UI;
 
@@ -59,7 +59,7 @@ class UI {
 	simplebutton::Button _right_button;
 #endif
 
-	std::shared_ptr<UIScreen> _main_menu;
+	std::shared_ptr<UIScreen> _main_menu; // obj
 	std::shared_ptr<UIScreen> _wifi_menu;
 	std::shared_ptr<UIScreen> _measurement_menu;
 

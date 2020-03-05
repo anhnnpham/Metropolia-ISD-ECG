@@ -2,8 +2,7 @@
 
 #include <Arduino.h>
 
-StoreDataOnSD::StoreDataOnSD(std::shared_ptr<Storage> storage)
-	: _storage(storage) {}
+StoreDataOnSD::StoreDataOnSD(std::shared_ptr<Storage> storage) : _storage(storage) {}
 
 StoreDataOnSD::~StoreDataOnSD() {}
 

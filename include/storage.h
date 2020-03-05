@@ -5,7 +5,7 @@
 
 #include <SD.h>
 
-class SPIClass;
+class SPIClass; // std lib
 
 enum class StorageError {
 	None,
@@ -27,8 +27,7 @@ class StorageEntry {
 	std::string _name;
 	size_t _size;
 
-	StorageEntry(std::string name, size_t size)
-		: _name(std::move(name)), _size(size) {}
+	StorageEntry(std::string name, size_t size) : _name(std::move(name)), _size(size) {}
 
 public:
 	const char* get_name() const {
@@ -43,26 +42,27 @@ public:
 };
 
 class Storage {
-	SPIClass& _spi;
+	SPIClass& _spi; // obj
 	std::mutex& _spi_mutex;
 
 	int _last_file_index = 0;
 	File _current_file;
 	std::string _current_recording_name;
-	StorageState _state = StorageState::Idle;
+	StorageState _state = StorageState::Idle; // enum class
 	StorageError _error = StorageError::None;
 
 	bool init();
 	void set_error(StorageError error);
 
 public:
+	Storage(); // TODO:
 	Storage(SPIClass& spi, std::mutex& spi_mutex);
 	~Storage();
 
 	StorageError get_error() const;
 	bool clear_error();
 
-	std::vector<StorageEntry> list_recordings();
+	std::vector<StorageEntry> list_recordings(); 
 	bool remove_recording(const char* name);
 
 	const char* create_new_recording();
@@ -73,6 +73,7 @@ public:
 
 	bool is_recording_open() const;
 	bool close_recording();
+
 };
 
 #endif

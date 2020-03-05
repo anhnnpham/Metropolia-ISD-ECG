@@ -11,7 +11,7 @@ public:
 	SetupWiFi();
 	~SetupWiFi();
 
-	const char* get_ap_name();
+	const char* get_ap_name(); // getter
 	const char* get_ap_password();
 	IPAddress get_ap_ip_address();
 

@@ -138,8 +138,7 @@ public:
 	}
 };
 
-UI::UI(SPIClass& spi, std::mutex& spi_mutex)
-	: _spi(spi), _spi_mutex(spi_mutex)
+UI::UI(SPIClass& spi, std::mutex& spi_mutex) : _spi(spi), _spi_mutex(spi_mutex)
 #ifdef ARDUINO_NodeMCU_32S
 	  ,
 	  _up_button(BTN_UP), _down_button(BTN_DOWN), _left_button(BTN_LEFT),
