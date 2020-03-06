@@ -1,0 +1,27 @@
+(JS) 192.168.4.1/recordings.csv -> files in .csv format 00001,00002,00003 
+
+// remove recording with 'X' button
+
+download speed
+
+
+
+    File dataFile = SD.open(url_request.c_str()); // TODO: still receive .rec & downloaded as .rec in .gzip
+
+    File dataFile; // TODO: still receive .rec & downloaded as .rec in .gzip
+    if (SD.exists(url_request.c_str())) {
+		
+        if(!(dataFile = SD.open(url_request.c_str()))) { 
+            dataFile.close();
+            // Storage_obj.set_error(StorageError::CanNotOpenFile);
+			log_e("can not open recording: %s", url_request.c_str());
+            server.send(500, "text/plain", "500: Internal Server Error"); // server error 
+            return;
+        } 
+	} else {
+		log_e("no such recording: %s", url_request.c_str());
+        server.send(404, "text/plain", "404: Not found"); // Send HTTP status 404 (Not Found) when there's no handler for the URI in the request
+	}    
+
+
+

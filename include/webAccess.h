@@ -14,6 +14,7 @@ public:
 	~WebAccess();
 	void handleRoot(); 
 	void handleRecordingCsv();
+	void handleRemoveRecording();
 	void handleNotFound();
 	void loop();
 };

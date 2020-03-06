@@ -1,0 +1,503 @@
+stat /dev/ttyUSB0
+groups
+sudo chown anhnnpham /dev/ttyUSB0
+sudo apt show 
+apt show bash-completion
+sudo adduser anhnnpham dialout
+pio --help
+pio
+pio run -t upload -e nodemcu-esp32 && pio device monitor
+
+
+
+
+
+anhnnpham@anh-HP:~$  java
+
+Command 'java' not found, but can be installed with:
+
+sudo apt install default-jre            
+sudo apt install openjdk-11-jre-headless
+sudo apt install openjdk-8-jre-headless 
+
+anhnnpham@anh-HP:~$  python
+python             python2-config     python3.6m         python3m-config
+python2            python3            python3.6m-config  python3-wsdump
+python2.7          python3.6          python3-config     python-config
+python2.7-config   python3.6-config   python3m           
+anhnnpham@anh-HP:~$  python3 Downloads/
+DD/                       esp32backtracedecoder.py  
+anhnnpham@anh-HP:~$  python3 Downloads/esp32backtracedecoder.py 
+usage: esp32backtracedecoder.py [-h] [-p {ESP8266,ESP32}] [-t TOOL] -e ELF
+                                [-f] [-s]
+                                file
+esp32backtracedecoder.py: error: the following arguments are required: -e/--elf, file
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/
+Metropolia-ISD-ECG/ Program Files/      
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/
+doc/     .git/    include/ lib/     .pio/    src/     test/    .vscode/ 
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/
+build/   libdeps/ 
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/
+nodemcu-esp32/  ttgo-lora32-v1/ 
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -- -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/
+FrameworkArduino/ lib40e/           lib91f/           libd72/
+lib0bd/           lib714/           liba44/           libeaf/
+lib28b/           lib81c/           liba74/           src/
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -- -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -
+usage: esp32backtracedecoder.py [-h] [-p {ESP8266,ESP32}] [-t TOOL] -e ELF
+                                [-f] [-s]
+                                file
+esp32backtracedecoder.py: error: the following arguments are required: -e/--elf
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py\ -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -
+python3: can't open file 'Downloads/esp32backtracedecoder.py -e': [Errno 2] No such file or directory
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -
+ERROR: addr2line not found (/home/anhnnpham/.platformio/packages/toolchain-xtensa/bin/xtensa-lx106-elf-addr2line)
+^CTraceback (most recent call last):
+  File "Downloads/esp32backtracedecoder.py", line 304, in <module>
+    parser.parse_file(file, args.stack_only)
+  File "Downloads/esp32backtracedecoder.py", line 142, in parse_file
+    for line in file:
+KeyboardInterrupt
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -t /home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-lx106-elf-addr2line
+usage: esp32backtracedecoder.py [-h] [-p {ESP8266,ESP32}] [-t TOOL] -e ELF
+                                [-f] [-s]
+                                file
+esp32backtracedecoder.py: error: the following arguments are required: file
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -t /home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-lx106-elf-addr2line -
+ERROR: addr2line not found (/home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-lx106-elf-addr2line/bin/xtensa-lx106-elf-addr2line)
+^CTraceback (most recent call last):
+  File "Downloads/esp32backtracedecoder.py", line 304, in <module>
+    parser.parse_file(file, args.stack_only)
+  File "Downloads/esp32backtracedecoder.py", line 142, in parse_file
+    for line in file:
+KeyboardInterrupt
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -t /home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-esp32-elf-addr2line -
+ERROR: addr2line not found (/home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-esp32-elf-addr2line/bin/xtensa-lx106-elf-addr2line)
+^CTraceback (most recent call last):
+  File "Downloads/esp32backtracedecoder.py", line 304, in <module>
+    parser.parse_file(file, args.stack_only)
+  File "Downloads/esp32backtracedecoder.py", line 142, in parse_file
+    for line in file:
+KeyboardInterrupt
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -t /home/anhnnpham/.platformio/packages/toolchain-xtensa32 -p esp32 -
+usage: esp32backtracedecoder.py [-h] [-p {ESP8266,ESP32}] [-t TOOL] -e ELF
+                                [-f] [-s]
+                                file
+esp32backtracedecoder.py: error: argument -p/--platform: invalid choice: 'esp32' (choose from 'ESP8266', 'ESP32')
+anhnnpham@anh-HP:~$ python3 Downloads/esp32backtracedecoder.py -e aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -t /home/anhnnpham/.platformio/packages/toolchain-xtensa32 -p ESP32 -
+Backtrace: 0x4008cef0:0x3ffb1d00 0x4008d121:0x3ffb1d20 0x400892f1:0x3ffb1d40 0x40137b5e:0x3ffb1d80 0x40137e3a:0x3ffb1da0 0x40126b88:0x3ffb1dc0 0x40126bf1:0x3ffb1de0 0x4013969e:0x3ffb1e00 0x40138334:0x3ffb1e20 0x40125bb8:0x3ffb1e60 0x4015f347:0x3ffb1e80 0x400d78d9:0x3ffb1ec0 0x400d3e0d:0x3ffb1ee0 0x400d1a31:0x3ffb1f70 0x400de073:0x3ffb1fb0 0x40089605:0x3ffb1fd0
+ERROR: Parser not complete!
+anhnnpham@anh-HP:~$ sudo apt install default-jre
+[sudo] password for anhnnpham: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  blt efibootmgr gconf-service gconf-service-backend gconf2 gconf2-common
+  golang-docker-credential-helpers hddtemp javascript-common libappindicator1
+  libblas3 libbonobo2-0 libbonobo2-common libbonoboui2-0 libbonoboui2-common
+  libcommon-sense-perl libcrypt-openssl-bignum-perl libcrypt-openssl-rsa-perl
+  libdata-random-perl libdc1394-utils libfdk-aac1 libfile-which-perl libfwup1
+  libgconf-2-4 libgfortran4 libglade2-0 libgnome-2-0 libgnome-keyring-common
+  libgnome-keyring0 libgnome2-canvas-perl libgnome2-common libgnome2-gconf-perl
+  libgnome2-perl libgnome2-vfs-perl libgnome2-wnck-perl libgnomecanvas2-0
+  libgnomecanvas2-common libgnomeui-0 libgnomeui-common libgnomevfs2-0
+  libgnomevfs2-common libgnomevfs2-extra libgtk2-imageview-perl
+  libgtk2-unique-perl libgtkimageview0 libhttp-server-simple-perl libindicator7
+  libjs-jquery libjs-jquery-ui libjson-perl libjson-xs-perl liblapack3
+  libluajit-5.1-2 libluajit-5.1-common libmbedcrypto1 libmbedtls10 libmbedx509-0
+  libmouse-perl libnet-dropbox-api-perl libnet-oauth-perl liborbit-2-0
+  libpath-class-perl libproc-simple-perl libsort-naturally-perl libtcl8.6
+  libtk8.6 libtypes-serialiser-perl libunique-1.0-0 libwnck-common libwnck22
+  libwww-mechanize-perl libx11-protocol-other-perl python-appindicator
+  python-cairo python-gobject python-gobject-2 python-gtk2
+  python-matplotlib-data python3-bottle python3-cycler python3-docker
+  python3-dockerpycreds python3-influxdb python3-matplotlib python3-numpy
+  python3-ply python3-psutil python3-pyasn1 python3-pycryptodome
+  python3-pyparsing python3-pysmi python3-pysnmp4 python3-pystache python3-tk
+  python3-websocket tk8.6-blt2.5
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  ca-certificates-java default-jre-headless fonts-dejavu-extra java-common
+  libatk-wrapper-java libatk-wrapper-java-jni openjdk-11-jre
+  openjdk-11-jre-headless
+Suggested packages:
+  fonts-ipafont-gothic fonts-ipafont-mincho fonts-wqy-microhei
+  | fonts-wqy-zenhei
+The following NEW packages will be installed:
+  ca-certificates-java default-jre default-jre-headless fonts-dejavu-extra
+  java-common libatk-wrapper-java libatk-wrapper-java-jni openjdk-11-jre
+  openjdk-11-jre-headless
+0 upgraded, 9 newly installed, 0 to remove and 0 not upgraded.
+Need to get 39.6 MB of archives.
+After this operation, 179 MB of additional disk space will be used.
+Do you want to continue? [Y/n] 
+Get:1 http://fi.archive.ubuntu.com/ubuntu bionic/main amd64 ca-certificates-java all 20170930ubuntu1 [12.1 kB]
+Get:2 http://fi.archive.ubuntu.com/ubuntu bionic/main amd64 fonts-dejavu-extra all 2.37-1 [1,953 kB]
+Get:3 http://security.ubuntu.com/ubuntu bionic-security/main amd64 java-common all 0.68ubuntu1~18.04.1 [14.5 kB]
+Get:4 http://fi.archive.ubuntu.com/ubuntu bionic/main amd64 libatk-wrapper-java all 0.33.3-20ubuntu0.1 [34.7 kB]
+Get:5 http://fi.archive.ubuntu.com/ubuntu bionic/main amd64 libatk-wrapper-java-jni amd64 0.33.3-20ubuntu0.1 [28.3 kB]
+Get:6 http://security.ubuntu.com/ubuntu bionic-security/main amd64 openjdk-11-jre-headless amd64 11.0.6+10-1ubuntu1~18.04.1 [37.5 MB]
+Get:7 http://security.ubuntu.com/ubuntu bionic-security/main amd64 default-jre-headless amd64 2:1.11-68ubuntu1~18.04.1 [10.9 kB]
+Get:8 http://security.ubuntu.com/ubuntu bionic-security/main amd64 openjdk-11-jre amd64 11.0.6+10-1ubuntu1~18.04.1 [34.5 kB]
+Get:9 http://security.ubuntu.com/ubuntu bionic-security/main amd64 default-jre amd64 2:1.11-68ubuntu1~18.04.1 [1,076 B]
+Fetched 39.6 MB in 4s (10.1 MB/s)       
+Selecting previously unselected package java-common.
+(Reading database ... 203238 files and directories currently installed.)
+Preparing to unpack .../0-java-common_0.68ubuntu1~18.04.1_all.deb ...
+Unpacking java-common (0.68ubuntu1~18.04.1) ...
+Selecting previously unselected package openjdk-11-jre-headless:amd64.
+Preparing to unpack .../1-openjdk-11-jre-headless_11.0.6+10-1ubuntu1~18.04.1_amd64.deb ...
+Unpacking openjdk-11-jre-headless:amd64 (11.0.6+10-1ubuntu1~18.04.1) ...
+Selecting previously unselected package default-jre-headless.
+Preparing to unpack .../2-default-jre-headless_2%3a1.11-68ubuntu1~18.04.1_amd64.deb ...
+Unpacking default-jre-headless (2:1.11-68ubuntu1~18.04.1) ...
+Selecting previously unselected package ca-certificates-java.
+Preparing to unpack .../3-ca-certificates-java_20170930ubuntu1_all.deb ...
+Unpacking ca-certificates-java (20170930ubuntu1) ...
+Selecting previously unselected package openjdk-11-jre:amd64.
+Preparing to unpack .../4-openjdk-11-jre_11.0.6+10-1ubuntu1~18.04.1_amd64.deb ...
+Unpacking openjdk-11-jre:amd64 (11.0.6+10-1ubuntu1~18.04.1) ...
+Selecting previously unselected package default-jre.
+Preparing to unpack .../5-default-jre_2%3a1.11-68ubuntu1~18.04.1_amd64.deb ...
+Unpacking default-jre (2:1.11-68ubuntu1~18.04.1) ...
+Selecting previously unselected package fonts-dejavu-extra.
+Preparing to unpack .../6-fonts-dejavu-extra_2.37-1_all.deb ...
+Unpacking fonts-dejavu-extra (2.37-1) ...
+Selecting previously unselected package libatk-wrapper-java.
+Preparing to unpack .../7-libatk-wrapper-java_0.33.3-20ubuntu0.1_all.deb ...
+Unpacking libatk-wrapper-java (0.33.3-20ubuntu0.1) ...
+Selecting previously unselected package libatk-wrapper-java-jni:amd64.
+Preparing to unpack .../8-libatk-wrapper-java-jni_0.33.3-20ubuntu0.1_amd64.deb ...
+Unpacking libatk-wrapper-java-jni:amd64 (0.33.3-20ubuntu0.1) ...
+Setting up java-common (0.68ubuntu1~18.04.1) ...
+Setting up fonts-dejavu-extra (2.37-1) ...
+Setting up libatk-wrapper-java (0.33.3-20ubuntu0.1) ...
+Setting up libatk-wrapper-java-jni:amd64 (0.33.3-20ubuntu0.1) ...
+Setting up openjdk-11-jre-headless:amd64 (11.0.6+10-1ubuntu1~18.04.1) ...
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/rmid to provide /usr/bin/rmid (rmid) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/java to provide /usr/bin/java (java) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/keytool to provide /usr/bin/keytool (keytool) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jjs to provide /usr/bin/jjs (jjs) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/pack200 to provide /usr/bin/pack200 (pack200) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/rmiregistry to provide /usr/bin/rmiregistry (rmiregistry) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/unpack200 to provide /usr/bin/unpack200 (unpack200) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jfr to provide /usr/bin/jfr (jfr) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/lib/jexec to provide /usr/bin/jexec (jexec) in auto mode
+Setting up default-jre-headless (2:1.11-68ubuntu1~18.04.1) ...
+Setting up openjdk-11-jre:amd64 (11.0.6+10-1ubuntu1~18.04.1) ...
+Setting up ca-certificates-java (20170930ubuntu1) ...
+Adding debian:GeoTrust_Global_CA.pem
+Adding debian:Entrust.net_Premium_2048_Secure_Server_CA.pem
+Adding debian:EC-ACC.pem
+Adding debian:Certum_Trusted_Network_CA.pem
+Adding debian:D-TRUST_Root_Class_3_CA_2_2009.pem
+Adding debian:Hongkong_Post_Root_CA_1.pem
+Adding debian:QuoVadis_Root_CA_2_G3.pem
+Adding debian:Deutsche_Telekom_Root_CA_2.pem
+Adding debian:DigiCert_High_Assurance_EV_Root_CA.pem
+Adding debian:TWCA_Root_Certification_Authority.pem
+Adding debian:SwissSign_Gold_CA_-_G2.pem
+Adding debian:COMODO_ECC_Certification_Authority.pem
+Adding debian:Amazon_Root_CA_4.pem
+Adding debian:Buypass_Class_2_Root_CA.pem
+Adding debian:TrustCor_RootCert_CA-2.pem
+Adding debian:VeriSign_Class_3_Public_Primary_Certification_Authority_-_G4.pem
+Adding debian:GeoTrust_Universal_CA_2.pem
+Adding debian:DigiCert_Global_Root_G2.pem
+Adding debian:OpenTrust_Root_CA_G1.pem
+Adding debian:Atos_TrustedRoot_2011.pem
+Adding debian:COMODO_RSA_Certification_Authority.pem
+Adding debian:thawte_Primary_Root_CA.pem
+Adding debian:Hellenic_Academic_and_Research_Institutions_RootCA_2011.pem
+Adding debian:OpenTrust_Root_CA_G2.pem
+Adding debian:Go_Daddy_Class_2_CA.pem
+Adding debian:VeriSign_Universal_Root_Certification_Authority.pem
+Adding debian:GlobalSign_ECC_Root_CA_-_R4.pem
+Adding debian:OpenTrust_Root_CA_G3.pem
+Adding debian:Trustis_FPS_Root_CA.pem
+Adding debian:VeriSign_Class_3_Public_Primary_Certification_Authority_-_G5.pem
+Adding debian:OISTE_WISeKey_Global_Root_GB_CA.pem
+Adding debian:Network_Solutions_Certificate_Authority.pem
+Adding debian:DigiCert_Assured_ID_Root_G3.pem
+Adding debian:QuoVadis_Root_CA.pem
+Adding debian:GlobalSign_Root_CA_-_R2.pem
+Adding debian:D-TRUST_Root_Class_3_CA_2_EV_2009.pem
+Adding debian:Go_Daddy_Root_Certificate_Authority_-_G2.pem
+Adding debian:GlobalSign_Root_CA_-_R3.pem
+Adding debian:Hellenic_Academic_and_Research_Institutions_RootCA_2015.pem
+Adding debian:Global_Chambersign_Root_-_2008.pem
+Adding debian:DigiCert_Trusted_Root_G4.pem
+Adding debian:Secure_Global_CA.pem
+Adding debian:SSL.com_EV_Root_Certification_Authority_RSA_R2.pem
+Adding debian:GDCA_TrustAUTH_R5_ROOT.pem
+Adding debian:DST_Root_CA_X3.pem
+Adding debian:Certplus_Class_2_Primary_CA.pem
+Adding debian:Certigna.pem
+Adding debian:Hellenic_Academic_and_Research_Institutions_ECC_RootCA_2015.pem
+Adding debian:Starfield_Class_2_CA.pem
+Adding debian:QuoVadis_Root_CA_2.pem
+Adding debian:COMODO_Certification_Authority.pem
+Adding debian:SecureSign_RootCA11.pem
+Adding debian:SSL.com_Root_Certification_Authority_ECC.pem
+Adding debian:LuxTrust_Global_Root_2.pem
+Adding debian:Baltimore_CyberTrust_Root.pem
+Adding debian:CA_Disig_Root_R2.pem
+Adding debian:GeoTrust_Primary_Certification_Authority.pem
+Adding debian:GlobalSign_Root_CA.pem
+Adding debian:certSIGN_ROOT_CA.pem
+Adding debian:Comodo_AAA_Services_root.pem
+Adding debian:EE_Certification_Centre_Root_CA.pem
+Adding debian:Certum_Trusted_Network_CA_2.pem
+Adding debian:Entrust_Root_Certification_Authority_-_EC1.pem
+Adding debian:ACCVRAIZ1.pem
+Adding debian:Entrust_Root_Certification_Authority.pem
+Adding debian:E-Tugra_Certification_Authority.pem
+Adding debian:ssl-cert-snakeoil.pem
+Adding debian:T-TeleSec_GlobalRoot_Class_2.pem
+Adding debian:AC_RAIZ_FNMT-RCM.pem
+Adding debian:SSL.com_EV_Root_Certification_Authority_ECC.pem
+Adding debian:Certinomis_-_Root_CA.pem
+Adding debian:Entrust_Root_Certification_Authority_-_G2.pem
+Adding debian:Actalis_Authentication_Root_CA.pem
+Adding debian:USERTrust_ECC_Certification_Authority.pem
+Adding debian:NetLock_Arany_=Class_Gold=_Főtanúsítvány.pem
+Adding debian:IdenTrust_Public_Sector_Root_CA_1.pem
+Adding debian:USERTrust_RSA_Certification_Authority.pem
+Adding debian:Verisign_Class_3_Public_Primary_Certification_Authority_-_G3.pem
+Adding debian:DigiCert_Global_Root_G3.pem
+Adding debian:CFCA_EV_ROOT.pem
+Adding debian:Izenpe.com.pem
+Adding debian:AffirmTrust_Premium_ECC.pem
+Adding debian:Microsec_e-Szigno_Root_CA_2009.pem
+Adding debian:DigiCert_Assured_ID_Root_G2.pem
+Adding debian:ePKI_Root_Certification_Authority.pem
+Adding debian:thawte_Primary_Root_CA_-_G2.pem
+Adding debian:Autoridad_de_Certificacion_Firmaprofesional_CIF_A62634068.pem
+Adding debian:AffirmTrust_Commercial.pem
+Adding debian:QuoVadis_Root_CA_3_G3.pem
+Adding debian:GeoTrust_Primary_Certification_Authority_-_G3.pem
+Adding debian:TrustCor_RootCert_CA-1.pem
+Adding debian:QuoVadis_Root_CA_3.pem
+Adding debian:TrustCor_ECA-1.pem
+Adding debian:SSL.com_Root_Certification_Authority_RSA.pem
+Adding debian:Taiwan_GRCA.pem
+Adding debian:XRamp_Global_CA_Root.pem
+Adding debian:TeliaSonera_Root_CA_v1.pem
+Adding debian:Staat_der_Nederlanden_Root_CA_-_G3.pem
+Adding debian:TWCA_Global_Root_CA.pem
+Adding debian:Certplus_Root_CA_G2.pem
+Adding debian:Amazon_Root_CA_3.pem
+Adding debian:Starfield_Services_Root_Certificate_Authority_-_G2.pem
+Adding debian:SZAFIR_ROOT_CA2.pem
+Adding debian:Amazon_Root_CA_1.pem
+Adding debian:SwissSign_Silver_CA_-_G2.pem
+Adding debian:Buypass_Class_3_Root_CA.pem
+Adding debian:ISRG_Root_X1.pem
+Adding debian:AffirmTrust_Networking.pem
+Adding debian:Security_Communication_Root_CA.pem
+Adding debian:IdenTrust_Commercial_Root_CA_1.pem
+Adding debian:thawte_Primary_Root_CA_-_G3.pem
+Adding debian:Staat_der_Nederlanden_Root_CA_-_G2.pem
+Adding debian:Starfield_Root_Certificate_Authority_-_G2.pem
+Adding debian:AddTrust_External_Root.pem
+Adding debian:Staat_der_Nederlanden_EV_Root_CA.pem
+Adding debian:Cybertrust_Global_Root.pem
+Adding debian:T-TeleSec_GlobalRoot_Class_3.pem
+Adding debian:TUBITAK_Kamu_SM_SSL_Kok_Sertifikasi_-_Surum_1.pem
+Adding debian:AffirmTrust_Premium.pem
+Adding debian:DigiCert_Assured_ID_Root_CA.pem
+Adding debian:GlobalSign_ECC_Root_CA_-_R5.pem
+Adding debian:Sonera_Class_2_Root_CA.pem
+Adding debian:DigiCert_Global_Root_CA.pem
+Adding debian:Certplus_Root_CA_G1.pem
+Adding debian:QuoVadis_Root_CA_1_G3.pem
+Adding debian:Visa_eCommerce_Root.pem
+Adding debian:Chambers_of_Commerce_Root_-_2008.pem
+Adding debian:OISTE_WISeKey_Global_Root_GA_CA.pem
+Adding debian:Amazon_Root_CA_2.pem
+Adding debian:TÜRKTRUST_Elektronik_Sertifika_Hizmet_Sağlayıcısı_H5.pem
+Adding debian:GeoTrust_Primary_Certification_Authority_-_G2.pem
+Adding debian:GeoTrust_Universal_CA.pem
+Adding debian:Security_Communication_RootCA2.pem
+Adding debian:SecureTrust_CA.pem
+done.
+Setting up default-jre (2:1.11-68ubuntu1~18.04.1) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for gnome-menus (3.13.3-11ubuntu1.1) ...
+Processing triggers for ca-certificates (20180409) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+
+done.
+Updating Mono key store
+Linux Cert Store Sync - version 4.6.2.0
+Synchronize local certs with certs from local Linux trust store.
+Copyright 2002, 2003 Motus Technologies. Copyright 2004-2008 Novell. BSD licensed.
+
+I already trust 133, your new list has 133
+Import process completed.
+Done
+done.
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+Processing triggers for fontconfig (2.12.6-0ubuntu2) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+Processing triggers for desktop-file-utils (0.23-1ubuntu3.18.04.2) ...
+anhnnpham@anh-HP:~$ java -jar Downloads/EspExceptionDecoder.jar 
+Error: Invalid or corrupt jarfile Downloads/EspExceptionDecoder.jar
+anhnnpham@anh-HP:~$ java -classpath Downloads/EspExceptionDecoder.jar com.ficeto.esp.EspExceptionDecoder 
+Error: Could not find or load main class com.ficeto.esp.EspExceptionDecoder
+Caused by: java.lang.NoClassDefFoundError: processing/app/tools/Tool
+anhnnpham@anh-HP:~$ java -jar Downloads/Esp
+EspExceptionDecoder.jar   EspStackTraceDecoder.jar  
+anhnnpham@anh-HP:~$ java -jar Downloads/EspStackTraceDecoder.jar 
+Usage:
+java -jar EspEception <Path to xtensa-lx106-elf-addr2line> <Elf-File> <Dump of Exception>
+anhnnpham@anh-HP:~$ java -jar Downloads/EspStackTraceDecoder.jar  /home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-lx106-elf-addr2line aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf -
+Exception in thread "main" java.nio.file.NoSuchFileException: -
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:116)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:219)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:370)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:421)
+	at java.base/java.nio.file.Files.readAllBytes(Files.java:3205)
+	at EspStackTraceDecoder.main(Unknown Source)
+anhnnpham@anh-HP:~$ java -jar Downloads/EspStackTraceDecoder.jar  /home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-lx106-elf-addr2line aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf aproject/stacktrace.txt 
+Exception Cause: Not found
+
+Exception in thread "main" java.io.IOException: Cannot run program "/home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-lx106-elf-addr2line": error=2, No such file or directory
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1128)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1071)
+	at EspStackTraceDecoder.main(Unknown Source)
+Caused by: java.io.IOException: error=2, No such file or directory
+	at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:340)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:271)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1107)
+	... 2 more
+anhnnpham@anh-HP:~$ java -jar Downloads/EspStackTraceDecoder.jar  /home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-esp32-elf-addr2line aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf aproject/stacktrace.txt 
+Exception Cause: Not found
+
+0x4008cef0: invoke_abort at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/esp32/panic.c:707
+0x4008d121: abort at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/esp32/panic.c:707
+0x400892f1: xQueueGenericReceive at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/freertos/queue.c:1996
+0x40137b5e: sys_mutex_lock at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/port/esp32/freertos/sys_arch.c:203
+0x40137e3a: sys_arch_protect at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/port/esp32/freertos/sys_arch.c:469
+0x40126b88: do_memp_malloc_pool at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/core/memp.c:459
+0x40126bf1: memp_malloc at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/core/memp.c:459
+0x4013969e: netconn_alloc at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/api/api_msg.c:742
+0x40138334: netconn_new_with_proto_and_callback at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/api/api_lib.c:950 (discriminator 4)
+0x40125bb8: lwip_socket at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/api/sockets.c:3532
+0x4015f347: WiFiServer::begin(unsigned short) at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.cpp:120
+ (inlined by) WiFiServer::begin(unsigned short) at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.cpp:72
+0x400d78d9: WebServer::begin() at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/WebServer.cpp:229
+0x400d3e0d: WebAccess::WebAccess(std::shared_ptr<Storage>) at /home/anhnnpham/aproject/Metropolia-ISD-ECG/src/webAccess.cpp:23 (discriminator 4)
+0x400d1a31: std::_MakeUniq<WebAccess>::__single_object std::make_unique<WebAccess, std::shared_ptr<Storage>&>(std::shared_ptr<Storage>&) at /home/anhnnpham/.platformio/packages/toolchain-xtensa32/xtensa-esp32-elf/include/c++/5.2.0/bits/shared_ptr_base.h:127 (discriminator 1)
+ (inlined by) setup() at /home/anhnnpham/aproject/Metropolia-ISD-ECG/src/main.cpp:41 (discriminator 1)
+0x400de073: loopTask(void*) at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/cores/esp32/main.cpp:14
+0x40089605: vPortTaskWrapper at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/freertos/port.c:355 (discriminator 1)
+anhnnpham@anh-HP:~$ 
+anhnnpham@anh-HP:~$ 
+anhnnpham@anh-HP:~$ java -jar Downloads/EspStackTraceDecoder.jar  /home/anhnnpham/.platformio/packages/toolchain-xtensa32/bin/xtensa-esp32-elf-addr2line aproject/Metropolia-ISD-ECG/.pio/build/nodemcu-esp32/firmware.elf aproject/stacktrace.txt 
+Exception Cause: Not found
+
+0x4008cef0: invoke_abort at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/esp32/panic.c:707
+0x4008d121: abort at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/esp32/panic.c:707
+0x400892f1: xQueueGenericReceive at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/freertos/queue.c:1996
+0x40137b5e: sys_mutex_lock at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/port/esp32/freertos/sys_arch.c:203
+0x40137e3a: sys_arch_protect at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/port/esp32/freertos/sys_arch.c:469
+0x40126b88: do_memp_malloc_pool at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/core/memp.c:459
+0x40126bf1: memp_malloc at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/core/memp.c:459
+0x4013969e: netconn_alloc at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/api/api_msg.c:742
+0x40138334: netconn_new_with_proto_and_callback at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/api/api_lib.c:950 (discriminator 4)
+0x40125bb8: lwip_socket at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/lwip/lwip/src/api/sockets.c:3532
+0x4015f347: WiFiServer::begin(unsigned short) at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.cpp:120
+ (inlined by) WiFiServer::begin(unsigned short) at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.cpp:72
+0x400d78d9: WebServer::begin() at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/WebServer.cpp:229
+0x400d3e0d: WebAccess::WebAccess(std::shared_ptr<Storage>) at /home/anhnnpham/aproject/Metropolia-ISD-ECG/src/webAccess.cpp:23 (discriminator 4)
+0x400d1a31: std::_MakeUniq<WebAccess>::__single_object std::make_unique<WebAccess, std::shared_ptr<Storage>&>(std::shared_ptr<Storage>&) at /home/anhnnpham/.platformio/packages/toolchain-xtensa32/xtensa-esp32-elf/include/c++/5.2.0/bits/shared_ptr_base.h:127 (discriminator 1)
+ (inlined by) setup() at /home/anhnnpham/aproject/Metropolia-ISD-ECG/src/main.cpp:41 (discriminator 1)
+0x400de073: loopTask(void*) at /home/anhnnpham/.platformio/packages/framework-arduinoespressif32/cores/esp32/main.cpp:14
+0x40089605: vPortTaskWrapper at /home/runner/work/esp32-arduino-lib-builder/esp32-arduino-lib-builder/esp-idf/components/freertos/port.c:355 (discriminator 1)
+anhnnpham@anh-HP:~$ 
+
