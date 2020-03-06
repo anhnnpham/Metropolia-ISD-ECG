@@ -35,15 +35,15 @@ void WebAccess::handleRoot() {                         // When URI / is requeste
         "       <title>ESP-ISD-ECG</title>\n" // specifies a title for the document
         "   </head>\n"
         "   <body>\n" // defines the document body.
-        "       <h1>ESP-ISD-ECG</h1>\n" // heading
+        "       <h1>ESP-ISD-ECG SD CARD</h1>\n" // heading
         "       <ul>\n" // unordered/bullet list, followed by <li> (List Items, empty tag)
     );
-
     // WiFiClient client = _server.client();
-
+    
     for (auto& recordings : _storage->list_recordings()) { // return obj
         // <a href='/recordings/000xx.csv'>000xx</a> --- link & Button
-        std::string msg = "<li><a href='/recordings/"; // Links
+        // Links
+        std::string msg = "<li><a href='/recordings/"; // content = C-string
         msg += recordings.get_name();
         msg += ".csv'>"; 
         msg += recordings.get_name();
@@ -78,24 +78,29 @@ void WebAccess::handleRecordingCsv() { // If a POST request is made to URI /reco
     _server.setContentLength(CONTENT_LENGTH_UNKNOWN);
     _server.send(200, "text/csv", "");
     WiFiClient client = _server.client();
-
+    
     if (_storage->open_recording(recording_name.c_str())) { // if can open
         do {
+            std::string msg;
             // then read, put to "data" & return length
             len = _storage->read_record(data, 7); 
             
             for (int i = 0; i < len; i++) {
                 snprintf(fl_to_str, 9, "%f", data[i]); // float to string
-                _server.sendContent(fl_to_str);
+                // _server.sendContent(fl_to_str);
+                msg += fl_to_str; // Links
                 if (i == len - 1) { // for every read_record()
-                    _server.sendContent("\n"); 
+                    // _server.sendContent("\n"); 
+                    msg += "\n";
                 } else {
-                    _server.sendContent(",");
+                    // _server.sendContent(",");
+                    msg += ",";
                 }
             }
+        _server.sendContent(msg.data());
         } while (len >= 1);
         
-        // // Send zero length chunk to terminate the HTTP body
+        // Send zero length chunk to terminate the HTTP body
         _server.sendContent("");
         _storage->close_recording();
     } else {
@@ -108,7 +113,7 @@ void WebAccess::handleRemoveRecording() { // If a POST request is made to URI /r
     //   std::lock_guard<std::mutex> lock(_spi_mutex);
     String recording_name = _server.pathArg(0); // TODO: get 000xx tks to UriBraces
 
-    _server.setContentLength(CONTENT_LENGTH_UNKNOWN);
+    // _server.setContentLength(CONTENT_LENGTH_UNKNOWN);
     // _server.send(200, "text/html",
     //     "<html>\n" // defines the whole document
     //     "   <head>\n" // (not shown) contains meta information about the document
@@ -127,7 +132,6 @@ void WebAccess::handleRemoveRecording() { // If a POST request is made to URI /r
     {
         _storage->close_recording();
         _server.send(503, "text/plain", "500: Internal Server Error"); // SD cannot delete
-        // delay(5000); // wait before redirecting to /
         // log_e already inside remove_recording()
         return;
     }
