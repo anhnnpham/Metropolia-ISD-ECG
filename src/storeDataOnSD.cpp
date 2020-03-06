@@ -1,16 +1,13 @@
 #include "storeDataOnSD.h"
 
-storeDataOnSD::storeDataOnSD(/* args */)
-{
-}
+#include <Arduino.h>
 
-storeDataOnSD::~storeDataOnSD()
-{
-}
+StoreDataOnSD::StoreDataOnSD(std::shared_ptr<Storage> storage) : _storage(storage) {}
 
-void storeDataOnSD::loop()
-{
-    while (1)
-    {
-    }
+StoreDataOnSD::~StoreDataOnSD() {}
+
+void StoreDataOnSD::loop() {
+	while (true) {
+		delay(1000);
+	}
 }

@@ -1,11 +1,22 @@
+#ifndef ECG_ISD_ESP32_WEBACCESS_H
+#define ECG_ISD_ESP32_WEBACCESS_H
 
+#include "storage.h"
+#include <WebServer.h>
+// WebServer server(80);
 
-class webAccess
-{
-private:
-    /* data */
+class WebAccess {
+	WebServer _server/* (80) */;
+	std::shared_ptr<Storage> _storage;
+
 public:
-    webAccess(/* args */);
-    ~webAccess();
-    void loop();
+	WebAccess(std::shared_ptr<Storage> storage);
+	~WebAccess();
+	void handleRoot(); 
+	void handleRecordingCsv();
+	void handleRemoveRecording();
+	void handleNotFound();
+	void loop();
 };
+
+#endif // ECG_ISD_ESP32_WEBACCESS_H

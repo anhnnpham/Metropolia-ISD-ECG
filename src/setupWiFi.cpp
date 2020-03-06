@@ -1,22 +1,33 @@
 #include "setupWiFi.h"
 
-setupWiFi::setupWiFi(/* args */)
-{
-    WiFi.softAP(ssid, password);
+SetupWiFi::SetupWiFi() {}
+
+SetupWiFi::~SetupWiFi() {
+	WiFi.softAPdisconnect(true);
 }
 
-setupWiFi::~setupWiFi()
-{
+const char* SetupWiFi::get_ap_name() {
+	return _ssid;
 }
 
-void setupWiFi::loop()
-{
-    while (1)
-    {
-    }
+const char* SetupWiFi::get_ap_password() {
+	return _password;
 }
 
-IPAddress setupWiFi::getIP()
-{
-    return WiFi.softAPIP();
+IPAddress SetupWiFi::get_ap_ip_address() {
+	return WiFi.softAPIP();
+}
+
+bool SetupWiFi::set_ap_enabled(bool enabled) {
+	if (enabled) {
+		return WiFi.softAP(_ssid, _password);
+	} else {
+		return WiFi.softAPdisconnect(WiFi.getMode() == WIFI_MODE_AP);
+	}
+}
+
+bool SetupWiFi::is_ap_enabled() {
+	const auto wifi_mode = WiFi.getMode();
+
+	return wifi_mode == WIFI_MODE_AP || wifi_mode == WIFI_MODE_APSTA;
 }

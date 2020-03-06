@@ -1,16 +1,10 @@
 #include "streamData.h"
 
-streamData::streamData(/* args */)
-{
-}
+StreamData::StreamData() {}
 
-streamData::~streamData()
-{
-}
+StreamData::~StreamData() {}
 
-void streamData::loop()
-{
-    while (1)
-    {
-    }
+void StreamData::loop() {
+	while (true) {
+	}
 }

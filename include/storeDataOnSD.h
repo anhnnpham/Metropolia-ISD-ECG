@@ -1,10 +1,18 @@
-class storeDataOnSD
-{
-private:
-    /* data */
+#ifndef ECG_ISD_ESP32_STOREDATAONSD_H
+#define ECG_ISD_ESP32_STOREDATAONSD_H
+
+#include <memory>
+
+class Storage;
+
+class StoreDataOnSD {
+	std::shared_ptr<Storage> _storage;
+
 public:
-    storeDataOnSD(/* args */);
-    ~storeDataOnSD();
-    void loop();
+	StoreDataOnSD(std::shared_ptr<Storage> storage); 
+	// StoreDataOnSD::StoreDataOnSD(std::shared_ptr<Storage> storage) : _storage(storage) {}
+	~StoreDataOnSD();
+	void loop();
 };
 
+#endif

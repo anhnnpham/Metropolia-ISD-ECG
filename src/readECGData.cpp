@@ -1,15 +1,13 @@
 #include "readECGData.h"
 
-readECGData::readECGData(/* args */)
-{
-}
+#include <Arduino.h>
 
-readECGData::~readECGData()
-{
-}
-void readECGData::loop()
-{
-    while (1)
-    {
-    }
+ReadECGData::ReadECGData(SPIClass& spi) : _spi(spi) {}
+
+ReadECGData::~ReadECGData() {}
+
+void ReadECGData::loop() {
+	while (true) {
+		delay(1000);
+	}
 }
