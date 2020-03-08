@@ -10,15 +10,14 @@ extern "C"
 #include <errno.h>
 #include "sdkconfig.h"
 }
-
 #define PORT_NUMBER 8001
 
 static char tag[] = "socket_server";
 
 class StreamData {
 public:
-	StreamData();
 	~StreamData();
+	StreamData();
 	void loop();
 };
 
